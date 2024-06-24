@@ -221,6 +221,11 @@ getcertnames() {
     fi
 }
 
+# Show the latest N git tags
+gt() {
+    git tag --sort=-creatordate | head -n "$1"
+}
+
 # Query Wikipedia via console over DNS
 wiki() {
     dig +short txt "$*".wp.dg.cx | sd --string-mode '"' ''
