@@ -7,23 +7,23 @@ return {
 		local trouble = require("trouble")
 
 		map("n", "<leader>tt", function()
-			trouble.toggle()
+			trouble.toggle({ mode = "diagnostics", auto_preview = false })
 		end, { desc = "Trouble: Open/Close" })
 
 		map("n", "<leader>tp", function()
-			trouble.previous({ skip_groups = true, jump = true })
+			trouble.previous({ mode = "diagnostics", skip_groups = true, jump = true })
 		end, { desc = "Trouble: Jump to the previous item" })
 
 		map("n", "<leader>tn", function()
-			trouble.next({ skip_groups = true, jump = true })
+			trouble.next({ mode = "diagnostics", skip_groups = true, jump = true })
 		end, { desc = "Trouble: Jump to the next item" })
 
 		map("n", "<leader>tf", function()
-			trouble.first({ skip_groups = true, jump = true })
+			trouble.first({ mode = "diagnostics", skip_groups = true, jump = true })
 		end, { desc = "Trouble: Jump to the first item" })
 
 		map("n", "<leader>tl", function()
-			trouble.last({ skip_groups = true, jump = true })
+			trouble.last({ mode = "diagnostics", skip_groups = true, jump = true })
 		end, { desc = "Trouble: Jump to the last item" })
 	end,
 }
