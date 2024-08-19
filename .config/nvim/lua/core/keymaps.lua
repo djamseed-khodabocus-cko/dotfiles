@@ -77,3 +77,10 @@ map("n", "<leader>Y", [["+Y]], { desc = "Yank into the system clipboard register
 -- Better experience
 map("n", "<space>", "<NOP>")
 map("n", "Q", "<NOP>")
+
+-- Github Copilot
+map("i", "<C-Y>", 'copilot#Accept("\\<CR>")', {
+	expr = true,
+	replace_keycodes = false,
+	desc = "Accept Copilot suggestion",
+})
