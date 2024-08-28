@@ -10,7 +10,7 @@ blinking = "On"
 shape = "Block"
 
 [font]
-size = 13
+size = 14
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
@@ -38,7 +38,7 @@ program = "/opt/homebrew/bin/bash"
 args = ["-l", "-c", "tmux a -t main || tmux new -t main"]
 
 [window]
-decorations = "full"
+decorations = "Buttonless"
 dynamic_padding = true
 dynamic_title = true
 opacity = 0.95
