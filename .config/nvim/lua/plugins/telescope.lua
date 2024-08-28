@@ -23,6 +23,7 @@ return {
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 					},
 				},
+				path_display = { "smart" },
 			},
 			extensions = {
 				fzf = {
