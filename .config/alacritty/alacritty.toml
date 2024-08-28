@@ -10,7 +10,7 @@ blinking = "On"
 shape = "Block"
 
 [font]
-size = 14
+size = 15
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
@@ -41,7 +41,7 @@ args = ["-l", "-c", "tmux a -t main || tmux new -t main"]
 decorations = "Buttonless"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.95
+opacity = 0.90
 option_as_alt = "OnlyLeft"
 startup_mode = "Windowed"
 title = "Alacritty"
