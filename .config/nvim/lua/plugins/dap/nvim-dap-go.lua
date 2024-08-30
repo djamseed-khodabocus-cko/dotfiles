@@ -9,7 +9,7 @@ return {
 	config = function()
 		require("dap-go").setup({
 			delve = {
-				path = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/dlv",
+				path = vim.fn.expand("~/.local/share/nvim/mason/bin/dlv"),
 			},
 		})
 	end,
