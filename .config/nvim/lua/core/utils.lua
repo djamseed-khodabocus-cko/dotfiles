@@ -1,7 +1,7 @@
 local M = {}
 
 ---@param mode string|table
----@param lhs string|table
+---@param lhs string
 ---@param rhs string|function
 ---@param opts table | nil
 function M.map(mode, lhs, rhs, opts)
