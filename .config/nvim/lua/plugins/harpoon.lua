@@ -28,8 +28,8 @@ return {
 			harpoon:list():next()
 		end, { desc = "Go to the next marked buffer" })
 
-		-- Switch to any marked buffer (from 1 - 5)
-		for i = 1, 5 do
+		-- Switch to any marked buffer (from 1 - 9)
+		for i = 1, 9 do
 			map("n", string.format("<leader>%s", i), function()
 				harpoon:list():select(i)
 			end, { desc = string.format("Switch to marked buffer %s", i) })
