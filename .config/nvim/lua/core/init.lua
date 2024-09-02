@@ -13,8 +13,8 @@ end
 
 vim.opt.runtimepath:prepend(lazypath)
 
-require("core.globals")
 require("core.options")
+require("core.globals")
 require("core.keymaps")
 require("core.autocmds")
 
