@@ -20,6 +20,9 @@ unset file
 # Starship prompt
 command -v starship &>/dev/null && eval "$(starship init bash)"
 
+# Zoxide
+command -v zoxide &>/dev/null && eval "$(zoxide init bash)"
+
 # History settings.
 HISTCONTROL=ignoreboth:erasedups    # Ignore and erase duplicates
 HISTFILE=$HOME/.cache/.bash_history # Custom history file
