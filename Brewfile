@@ -53,6 +53,7 @@ brew 'tmux'
 brew 'xh'
 brew 'yt-dlp'
 brew 'yabai'
+brew 'zoxide'
 
 cask '1password'
 cask 'alacritty'
