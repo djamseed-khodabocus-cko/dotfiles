@@ -35,4 +35,10 @@ yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add app="^Music$" manage=off
 yabai -m rule --add app="^TV$" manage=off
 
+yabai -m rule --add app="^Arc$" space=^1
+yabai -m rule --add app="^Alacritty$" space=^2
+yabai -m rule --add app="^Rider$" space=3
+yabai -m rule --add app="^Slack$" space=4
+yabai -m rule --add app="^Spotify$" space=10
+
 echo "yabai configuration loaded.."
