@@ -30,5 +30,6 @@ return {
 		map("n", "<leader>ee", "<CMD>NvimTreeToggle<CR>", { desc = "Open/Close file explorer" })
 		map("n", "<leader>ef", "<CMD>NvimTreeFindFileToggle<CR>", { desc = "Open file explorer on current buffer" })
 		map("n", "<leader>ec", "<CMD>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
+		map("n", "<leader>er", "<CMD>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
 	end,
 }
