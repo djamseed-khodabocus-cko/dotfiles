@@ -79,6 +79,7 @@ ln -sfn "$PWD"/.config/mpv "$HOME/.config/mpv"
 ln -sfn "$PWD"/.config/nvim "$HOME/.config/nvim"
 ln -sfn "$PWD"/.config/skhd "$HOME/.config/skhd"
 ln -sfn "$PWD"/.config/tmux "$HOME/.config/tmux"
+ln -sfn "$PWD"/.config/wezterm "$HOME/.config/wezterm"
 ln -sfn "$PWD"/.config/yabai "$HOME/.config/yabai"
 ln -sfn "$PWD"/.config/starship.toml "$HOME/.config/starship.toml"
 
