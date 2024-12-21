@@ -11,6 +11,7 @@ config = {
     font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", stretch = "Normal", style = "Normal" }),
     font_size = 14.0,
     macos_window_background_blur = 20,
+    max_fps = 120,
     scrollback_lines = 10000,
     window_background_opacity = 0.95,
     window_close_confirmation = "NeverPrompt",
