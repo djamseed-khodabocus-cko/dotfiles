@@ -79,7 +79,7 @@ map("n", "<space>", "<NOP>")
 map("n", "Q", "<NOP>")
 
 -- Github Copilot
-map("i", "<C-Y>", 'copilot#Accept("\\<CR>")', {
+map("i", "<Tab>", 'copilot#Accept("\\<CR>")', {
 	expr = true,
 	replace_keycodes = false,
 	desc = "Accept Copilot suggestion",
