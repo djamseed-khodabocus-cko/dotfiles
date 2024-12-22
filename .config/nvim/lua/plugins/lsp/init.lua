@@ -61,7 +61,6 @@ return {
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"bashls",
-				"dockerls",
 				"gopls",
 				"htmx",
 				"jsonls",
@@ -78,15 +77,6 @@ return {
 					lspconfig[server_name].setup({
 						capabilities = capabilities,
 						on_attach = on_attach,
-					})
-				end,
-
-				-- Docker
-				["dockerls"] = function()
-					lspconfig.bufls.setup({
-						capabilities = capabilities,
-						on_attach = on_attach,
-						cmd = { "docker-langserver", "--stdio" },
 					})
 				end,
 
