@@ -2,21 +2,10 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
+		"saghen/blink.cmp",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"hrsh7th/cmp-nvim-lsp",
-		{
-			"j-hui/fidget.nvim",
-			opts = {
-				notification = {
-					window = {
-						winblend = 0,
-					},
-				},
-			},
-		},
 	},
-	event = "VeryLazy",
 	config = function()
 		local function on_attach(_, bufnr)
 			-- Define specific keymaps for LSP related functions
@@ -66,7 +55,7 @@ return {
 		})
 
 		local lspconfig = require("lspconfig")
-		local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		-- List of LSP servers to install
 		require("mason-lspconfig").setup({
