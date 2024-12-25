@@ -24,13 +24,36 @@ return {
 					},
 				},
 				path_display = { "smart" },
+				extensions = {
+					fzf = {
+						fuzzy = true,
+						override_generic_sorter = true,
+						override_file_sorter = true,
+						case_mode = "smart_case",
+					},
+				},
 			},
-			extensions = {
-				fzf = {
-					fuzzy = true,
-					override_generic_sorter = true,
-					override_file_sorter = true,
-					case_mode = "smart_case",
+			pickers = {
+				find_files = {
+					theme = "ivy",
+				},
+				buffers = {
+					theme = "ivy",
+				},
+				git_files = {
+					theme = "ivy",
+				},
+				grep_string = {
+					theme = "ivy",
+				},
+				help_tags = {
+					theme = "ivy",
+				},
+				live_grep = {
+					theme = "ivy",
+				},
+				oldfiles = {
+					theme = "ivy",
 				},
 			},
 			priority = 100,
