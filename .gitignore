@@ -57,7 +57,7 @@ tags
 [._]*.un~
 
 # Ignore tmux plugins
-.config/tmux/plugins/**
+.config/tmux/plugins
 
 # Ignore lazy-lock.json
 .config/nvim/lazy-lock.json
