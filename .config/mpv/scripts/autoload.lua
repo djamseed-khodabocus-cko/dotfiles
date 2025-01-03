@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- This script automatically loads playlist entries before and after the
 -- the currently played file. It does so by scanning the directory a file is
 -- located in when starting playback. It sorts the directory entries
@@ -25,7 +26,7 @@ local msg = require("mp.msg")
 local options = require("mp.options")
 local utils = require("mp.utils")
 
-o = {
+local o = {
     disabled = false,
     images = true,
     videos = true,
@@ -101,7 +102,7 @@ if o.images then
     EXTENSIONS = SetUnion(EXTENSIONS, EXTENSIONS_IMAGES)
 end
 
-function add_files_at(index, files)
+local function add_files_at(index, files)
     index = index - 1
     local oldcount = mp.get_property_number("playlist-count", 1)
     for i = 1, #files do
@@ -110,8 +111,8 @@ function add_files_at(index, files)
     end
 end
 
-function get_extension(path)
-    match = string.match(path, "%.([^%.]+)$")
+local function get_extension(path)
+    local match = string.match(path, "%.([^%.]+)$")
     if match == nil then
         return "nomatch"
     else
@@ -132,7 +133,7 @@ end
 -- http://www.davekoelle.com/files/alphanum.lua
 
 -- split a string into a table of number and string values
-function splitbynum(s)
+local function splitbynum(s)
     local result = {}
     for x, y in (s or ""):gmatch("(%d*)(%D*)") do
         if x ~= "" then
@@ -145,13 +146,13 @@ function splitbynum(s)
     return result
 end
 
-function clean_key(k)
+local function clean_key(k)
     k = (" " .. k .. " "):gsub("%s+", " "):sub(2, -2):lower()
     return splitbynum(k)
 end
 
 -- compare two strings
-function alnumcomp(x, y)
+local function alnumcomp(x, y)
     local xt, yt = clean_key(x), clean_key(y)
     for i = 1, math.min(#xt, #yt) do
         local xe, ye = xt[i], yt[i]
@@ -169,7 +170,7 @@ end
 
 local autoloaded = nil
 
-function find_and_add_entries()
+local function find_and_add_entries()
     local path = mp.get_property("path", "")
     local dir, filename = utils.split_path(path)
     msg.trace(("dir: %s, filename: %s"):format(dir, filename))
@@ -202,7 +203,7 @@ function find_and_add_entries()
         msg.verbose("no other files in directory")
         return
     end
-    table.filter(files, function(v, k)
+    table.filter(files, function(v, _)
         if string.match(v, "^%.") then
             return false
         end

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- sponsorblock.lua
 --
 -- This script skips sponsored segments of YouTube videos
@@ -92,7 +93,7 @@ end
 options.local_database = false
 
 local utils = require("mp.utils")
-scripts_dir = mp.find_config_file("scripts")
+local scripts_dir = mp.find_config_file("scripts")
 
 local sponsorblock = utils.join_path(scripts_dir, "sponsorblock_shared/sponsorblock.py")
 local uid_path = utils.join_path(scripts_dir, "sponsorblock_shared/sponsorblock.txt")
@@ -117,7 +118,7 @@ for category in string.gmatch(options.skip_categories, "([^,]+)") do
     categories[category] = true
 end
 
-function file_exists(name)
+local function file_exists(name)
     local f = io.open(name, "r")
     if f ~= nil then
         io.close(f)
@@ -127,7 +128,7 @@ function file_exists(name)
     end
 end
 
-function t_count(t)
+local function t_count(t)
     local count = 0
     for _ in pairs(t) do
         count = count + 1
@@ -135,14 +136,14 @@ function t_count(t)
     return count
 end
 
-function time_sort(a, b)
+local function time_sort(a, b)
     if a.time == b.time then
         return string.match(a.title, "segment end")
     end
     return a.time < b.time
 end
 
-function parse_update_interval()
+local function parse_update_interval()
     local s = options.auto_update_interval
     if s == "" then
         return 0
@@ -164,7 +165,7 @@ function parse_update_interval()
     return num * time_table[mod]
 end
 
-function clean_chapters()
+local function clean_chapters()
     local chapters = mp.get_property_native("chapter-list")
     local new_chapters = {}
     for _, chapter in pairs(chapters) do
@@ -175,21 +176,20 @@ function clean_chapters()
     mp.set_property_native("chapter-list", new_chapters)
 end
 
-function create_chapter(chapter_title, chapter_time)
+local function create_chapter(chapter_title, chapter_time)
     local chapters = mp.get_property_native("chapter-list")
     local duration = mp.get_property_native("duration")
-    table.insert(
-        chapters,
-        { title = chapter_title, time = (duration == nil or duration > chapter_time) and chapter_time
-            or duration - 0.001 }
-    )
+    table.insert(chapters, {
+        title = chapter_title,
+        time = (duration == nil or duration > chapter_time) and chapter_time or duration - 0.001,
+    })
     table.sort(chapters, time_sort)
     mp.set_property_native("chapter-list", chapters)
 end
 
-function process(uuid, t, new_ranges)
-    start_time = tonumber(string.match(t, "[^,]+"))
-    end_time = tonumber(string.sub(string.match(t, ",[^,]+"), 2))
+local function process(uuid, t, new_ranges)
+    local start_time = tonumber(string.match(t, "[^,]+"))
+    local end_time = tonumber(string.sub(string.match(t, ",[^,]+"), 2))
     for o_uuid, o_t in pairs(ranges) do
         if
             (start_time >= o_t.start_time and start_time <= o_t.end_time)
@@ -199,7 +199,7 @@ function process(uuid, t, new_ranges)
             return
         end
     end
-    category = string.match(t, "[^,]+$")
+    local category = string.match(t, "[^,]+$")
     if categories[category] and end_time - start_time >= options.min_duration then
         new_ranges[uuid] = {
             start_time = start_time,
@@ -216,7 +216,7 @@ function process(uuid, t, new_ranges)
     end
 end
 
-function getranges(_, exists, db, more)
+local function getranges(_, exists, db, more)
     if type(exists) == "table" and exists["status"] == "1" then
         if options.server_fallback then
             mp.add_timeout(0, function()
@@ -269,7 +269,7 @@ function getranges(_, exists, db, more)
         r_count = -1
     end
     for t in string.gmatch(sponsors.stdout, "[^:%s]+") do
-        uuid = string.match(t, "([^,]+),[^,]+$")
+        local uuid = string.match(t, "([^,]+),[^,]+$")
         if ranges[uuid] then
             new_ranges[uuid] = ranges[uuid]
         else
@@ -283,7 +283,7 @@ function getranges(_, exists, db, more)
     end
 end
 
-function fast_forward()
+local function fast_forward()
     if options.fast_forward and options.fast_forward == true then
         speed_timer = nil
         mp.set_property("speed", 1)
@@ -296,7 +296,7 @@ function fast_forward()
     mp.set_property("speed", new_speed)
 end
 
-function fade_audio(step)
+local function fade_audio(step)
     local last_volume = mp.get_property_number("volume")
     local new_volume = math.max(options.audio_fade_cap, math.min(last_volume + step, volume_before))
     if new_volume == last_volume then
@@ -312,7 +312,7 @@ function fade_audio(step)
     mp.set_property("volume", new_volume)
 end
 
-function skip_ads(name, pos)
+local function skip_ads(_, pos)
     if pos == nil then
         return
     end
@@ -398,7 +398,7 @@ function skip_ads(name, pos)
     end
 end
 
-function vote(dir)
+local function vote(dir)
     if last_skip.uuid == "" then
         return mp.osd_message("[sponsorblock] no sponsors skipped, can't submit vote")
     end
@@ -428,24 +428,21 @@ function vote(dir)
     mp.osd_message("[sponsorblock] " .. updown .. "vote submitted")
 end
 
-function update()
-    mp.command_native_async(
-        {
-            name = "subprocess",
-            playback_only = false,
-            args = {
-                options.python_path,
-                sponsorblock,
-                "update",
-                database_file,
-                options.server_address,
-            },
+local function update()
+    mp.command_native_async({
+        name = "subprocess",
+        playback_only = false,
+        args = {
+            options.python_path,
+            sponsorblock,
+            "update",
+            database_file,
+            options.server_address,
         },
-        getranges
-    )
+    }, getranges)
 end
 
-function file_loaded()
+local function file_loaded()
     local initialized = init
     ranges = {}
     segment = { a = 0, b = 0, progress = 0, first = true }
@@ -464,7 +461,7 @@ function file_loaded()
         "/embed/([%w-_]+).*",
     }
     youtube_id = nil
-    for i, url in ipairs(urls) do
+    for _, url in ipairs(urls) do
         youtube_id = youtube_id or string.match(video_path, url) or string.match(video_referer, url)
         if youtube_id then
             break
@@ -537,7 +534,7 @@ function file_loaded()
     update()
 end
 
-function set_segment()
+local function set_segment()
     if not youtube_id then
         return
     end
@@ -569,7 +566,7 @@ function set_segment()
     segment.first = false
 end
 
-function select_category(selected)
+local function select_category(selected)
     for category in string.gmatch(options.categories, "([^,]+)") do
         mp.remove_key_binding("select_category_" .. category)
         mp.remove_key_binding("kp_select_category_" .. category)
@@ -577,7 +574,7 @@ function select_category(selected)
     submit_segment(selected)
 end
 
-function submit_segment(category)
+local function submit_segment(category)
     if not youtube_id then
         return
     end
