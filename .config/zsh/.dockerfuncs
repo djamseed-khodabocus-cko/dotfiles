@@ -1,25 +1,22 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-# Bash wrappers for docker run commands
+# Zsh wrappers for docker run commands
 
 dcleanup() {
-    local containers
-    local volumes
-    local images
+    local containers volumes images
 
-    mapfile -t containers < <(docker ps -aq 2>/dev/null)
+    containers=($(docker ps -aq 2>/dev/null))
     docker rm "${containers[@]}" 2>/dev/null
 
-    mapfile -t volumes < <(docker ps --filter status=exited -q 2>/dev/null)
+    volumes=($(docker ps --filter status=exited -q 2>/dev/null))
     docker rm -v "${volumes[@]}" 2>/dev/null
 
-    mapfile -t images < <(docker images --filter dangling=true -q 2>/dev/null)
+    images=($(docker images --filter dangling=true -q 2>/dev/null))
     docker rmi "${images[@]}" 2>/dev/null
 }
 
 del_stopped() {
-    local name=$1
-    local state
+    local name=$1 state
     state=$(docker inspect --format '{{.State.Running}}' "$name" 2>/dev/null)
 
     if [[ "$state" == 'false' ]]; then
@@ -28,8 +25,7 @@ del_stopped() {
 }
 
 rmctr() {
-    # shellcheck disable=SC2068
-    docker rm -f $@ 2>/dev/null || true
+    docker rm -f "$@" 2>/dev/null || true
 }
 
 relies_on() {
@@ -82,11 +78,11 @@ prometheus() {
         -v "$HOME"/.cache/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
         -v prometheus_data:/prometheus \
         -p 9090:9090 \
+        --name prometheus \
+        prom/prometheus \
         -config.file=/etc/prometheus/prometheus.yml \
         -storage.local.path=/prometheus \
-        -storage.local.memory-chunks=10000 \
-        --name prometheus \
-        prom/prometheus
+        -storage.local.memory-chunks=10000
 }
 
 redis() {

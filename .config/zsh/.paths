@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+
+# Ensire unique entries in path and manpath
+typeset -U path manpath
+
+# Update path
+path=(
+    # Add custom paths (prepend to prioritize over system defaults)
+    $HOMEBREW_PREFIX/bin
+    $HOMEBREW_PREFIX/sbin
+    $HOMEBREW_PREFIX/opt/curl/bin
+    $HOMEBREW_PREFIX/opt/make/libexec/gnubin
+    $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin
+    $GOROOT
+    $GOROOT/bin
+    $GOPATH
+    $GOBIN
+    $HOME/.cargo/bin
+    $PYENV_ROOT/bin
+    /Applications/Docker.app/Contents/Resources/bin
+    $path
+)
+
+# Remove non-existent directories
+path=($^path(N-/))
+
+# Update manpath
+manpath=(
+    $HOMEBREW_PREFIX/opt/make/libexec/gnuman
+    $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnuman
+    $manpath
+)
+
+# Remove non-existent directories
+manpath=($^manpath(N-/))
+
+# Export update path and manpath
+export PATH
+export MANPATH="${(j/:/)manpath}"
