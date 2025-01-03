@@ -195,9 +195,3 @@
 
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
-
-[user]
-	name = Djamseed Khodabocus
-	email = djamseed.khodabocus@checkout.com
-[github]
-	user = djamseed-khodabocus-cko
