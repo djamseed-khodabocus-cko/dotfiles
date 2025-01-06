@@ -1,6 +1,6 @@
 # nvim
 
-This repository host my configuration for Neovim.
+This is my Neovim configuration.
 
 ![nvim](nvim.png)
 
@@ -8,49 +8,41 @@ This repository host my configuration for Neovim.
 
 ### Prerequisites
 
-- A terminal emulator that supports true colors. For macOS, we can install [iTerm2](https://iterm2.com/), [kitty](https://sw.kovidgoyal.net/kitty/), or [Alacritty](https://alacritty.org/). For a full list of terminals that supports true colors, see [here](https://github.com/termstandard/colors?tab=readme-ov-file#terminal-emulators)
+- A terminal emulator that supports true colors. On macOS, you can install [Alacritty](https://alacritty.org/), [Ghostty](https://ghostty.org/), [kitty](https://sw.kovidgoyal.net/kitty/) or [WezTerm](https://wezfurlong.org/wezterm/index.html)
+  For a full list of terminals that supports true colors, see [here](https://github.com/termstandard/colors?tab=readme-ov-file#terminal-emulators)
 - A font that supports glyphs (icons). We can install a patched font from [Nerd Fonts](https://www.nerdfonts.com/)
-- [ripgrep](https://github.com/BurntSushi/ripgrep) (rg) is a fast grepping tool that is used by several plugins such as [Telescope](https://github.com/nvim-telescope/telescope.nvim).
+- [fd](https://github.com/sharkdp/fd) - A simple and fast alternative to `find`, used by [fzf-lua](https://github.com/ibhagwan/fzf-lua)
+- [ripgrep](https://github.com/BurntSushi/ripgrep) (rg) - A fast grepping tool that is used by several plugins, including [fzf-lua](https://github.com/ibhagwan/fzf-lua)
 
 ### Install Neovim
 
-On macOS, it is recommended to install Neovim via [Homebrew](https://brew.sh). Simply run the following command:
+You can install Neovim on macOS using [Homebrew](https://brew.sh):
 
 ```sh
 brew install neovim
 ```
 
-### Setting up Neovim
-
-After installing `nvim` and all of the dependencies, clone this repo under the `~/.config` directory (macOS/Linux):
-
-```sh
-git clone https://github.com/djamseed/nvim.git ~/.config/nvim
-```
-
-When we first open Neovim, all the plugins will be automatically installed.
+Start Neovim by running `nvim` in the terminal. Once opened, all plugins will be automatically installed.
 
 ## Features
 
-- Plugin manager - [lazy.nvim](https://github.com/folke/lazy.nvim)
-- Theme - [Catppuccin](https://github.com/catppuccin/nvim)
-- File explorer - [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua)
-- Fuzzy finder - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- File navigation - [harpoon](https://github.com/ThePrimeagen/harpoon)
-- Statusline - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
-- Greeter - [alpha-nvim](https://github.com/goolord/alpha-nvim)
-- Keyboard shortcut hints - [which-key.nvim](https://github.com/folke/which-key.nvim)
+- Plugin manager - [lazy](https://github.com/folke/lazy.nvim)
+- Theme - [Rose Pine](https://github.com/rose-pine/neovim)
+- File explorer - [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim)
+- Fuzzy finder - [fzf-lua](https://github.com/ibhagwan/fzf-lua)
+- File navigation - [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
+- Statusline - [lualine](https://github.com/nvim-lualine/lualine.nvim)
+- Greeter - [snacks](https://github.com/folke/snacks.nvim)
+- Keyboard shortcut hints - [which-key](https://github.com/folke/which-key.nvim)
 - tmux window navigator - [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator)
 - Autopairs - [nvim-autopairs](https://github.com/windwp/nvim-autopairs)
-- Add/change/delete surrounding delimiter pairs - [nvim-surround](https://github.com/kylechui/nvim-surround)
-- Automatic tabstop/shiftwidth detection - [vim-sleuth](https://github.com/tpope/vim-sleuth)
 - Syntax highlighter and parser - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-- Commenting - [Comment.nvim](https://github.com/catppuccin/nvim)
+- Commenting - [Comment](https://github.com/numToStr/Comment.nvim)
 - Git wrapper - [vim-fugitive](https://github.com/tpope/vim-fugitive)
-- Git integration for buffers - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
+- Git integration for buffers - [gitsigns](https://github.com/lewis6991/gitsigns.nvim)
 - Indentation guides - [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim)
 - Package manager for LSP servers, DAP servers, linters and formatters - [mason.nvim](https://github.com/williamboman/mason.nvim)
-- Bridge between mason and lspconfig - [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim)
-- Autocomplete engine and snippets - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
-- Code formatting - [conform.nvim](https://github.com/stevearc/conform.nvim)
+- LSP server configurations - [nvim-lsp](https://github.com/neovim/nvim-lspconfig)
+- Autocomplete engine and snippets - [blink](https://github.com/Saghen/blink.cmp)
+- Code formatting - [conform](https://github.com/stevearc/conform.nvim)
 - Debugger support - [nvim-dap](https://github.com/mfussenegger/nvim-dap) and [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
