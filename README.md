@@ -2,16 +2,16 @@
 
 Setup for my personal dotfiles and [Homebrew](https://brew.sh) packages. Works on \*nix, optimized for macOS.
 
-![banner](banner.png)
+![screen](screen.png)
 
 My setup includes:
 
--   [Alacritty](https://alacritty.org)
--   [Bash](https://www.gnu.org/software/bash/)
--   [Tmux](https://github.com/tmux/tmux/wiki)
--   [Starship](https://starship.rs/)
--   [Neovim](https://neovim.io/)
--   [Jetbrains Mono Nerd Font](https://www.programmingfonts.org/#jetbrainsmono)
+- [Ghostty](https://ghostty.org)
+- [Bash](https://www.gnu.org/software/bash/)
+- [Tmux](https://github.com/tmux/tmux/wiki)
+- [Starship](https://starship.rs/)
+- [Neovim](https://neovim.io/)
+- [Jetbrains Mono Nerd Font](https://www.programmingfonts.org/#jetbrainsmono)
 
 ## Install
 
@@ -27,7 +27,7 @@ The install script will also run `macos.sh`, which provide sensible defaults whe
 
 ## Customizing
 
-Use an `.extra` file to save things (env vars, commands, etc...) you don't want to commit to a public repo.
+Use an `.privaterc` file to save things (env vars, commands, etc...) you don't want to commit to a public repo.
 It will be sourced if present. This can look something like that:
 
 ```sh

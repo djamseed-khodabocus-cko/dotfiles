@@ -11,6 +11,7 @@ path=(
     $HOMEBREW_PREFIX/opt/curl/bin
     $HOMEBREW_PREFIX/opt/make/libexec/gnubin
     $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin
+    $HOMEBREW_PREFIX/opt/openjdk@17/bin
     $GOROOT
     $GOROOT/bin
     $GOPATH

@@ -44,12 +44,12 @@ brew update
 # Install all dependencies with brew bundle (See Brewfile)
 brew bundle
 
-# Change the shell to bash
-if ! grep -q "$(which bash)" /etc/shells; then
-    sudo sh -c 'echo "$(which bash)" >> /etc/shells'
+# Change the shell to Homebrew flavored zsh
+if ! grep -q "$(which zsh)" /etc/shells; then
+    sudo sh -c 'echo "$(which zsh)" >> /etc/shells'
 fi
 
-chsh -s "$(which bash)"
+chsh -s "$(which zsh)"
 
 # Create symlinks from this repo to the $HOME directory
 find . -type f -name ".*" ! -name ".editorconfig" ! -name ".gitattributes" ! -name ".gitignore" ! -name ".gitmodules" ! -name ".config" ! -name ".git" -exec sh -c '
@@ -73,15 +73,10 @@ git update-index --skip-worktree "$PWD"/.gitconfig
 mkdir -p "$HOME"/.config
 
 # Create symlinks from the .config folder to ~/.config
-ln -sfn "$PWD"/.config/1Password "$HOME/.config/1Password"
-ln -sfn "$PWD"/.config/alacritty "$HOME/.config/alacritty"
-ln -sfn "$PWD"/.config/mpv "$HOME/.config/mpv"
-ln -sfn "$PWD"/.config/nvim "$HOME/.config/nvim"
-ln -sfn "$PWD"/.config/skhd "$HOME/.config/skhd"
-ln -sfn "$PWD"/.config/tmux "$HOME/.config/tmux"
-ln -sfn "$PWD"/.config/wezterm "$HOME/.config/wezterm"
-ln -sfn "$PWD"/.config/yabai "$HOME/.config/yabai"
-ln -sfn "$PWD"/.config/starship.toml "$HOME/.config/starship.toml"
+for file in "$PWD"/.config/*; do
+    f=$(basename "$file")
+    ln -sfn "$PWD/.config/$f" "$HOME/.config/$f"
+done
 
 # Set macOS preferences (sane defaults)
 bash macos.sh
