@@ -7,7 +7,7 @@ Setup for my personal dotfiles and [Homebrew](https://brew.sh) packages. Works o
 My setup includes:
 
 - [Ghostty](https://ghostty.org)
-- [Bash](https://www.gnu.org/software/bash/)
+- [Zsh](https://zsh.org)
 - [Tmux](https://github.com/tmux/tmux/wiki)
 - [Starship](https://starship.rs/)
 - [Neovim](https://neovim.io/)
@@ -27,7 +27,7 @@ The install script will also run `macos.sh`, which provide sensible defaults whe
 
 ## Customizing
 
-Use an `.privaterc` file to save things (env vars, commands, etc...) you don't want to commit to a public repo.
+Use a `.privaterc` file to save things (env vars, commands, etc...) you don't want to commit to a public repo.
 It will be sourced if present. This can look something like that:
 
 ```sh
