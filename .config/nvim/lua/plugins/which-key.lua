@@ -14,7 +14,6 @@ return {
 			{ '<leader>B', group = 'Breakpoint' },
 			{ '<leader>c', group = 'Code', mode = { 'n', 'x' } },
 			{ '<leader>d', group = 'Document' },
-			{ '<leader>e', group = 'Explorer' },
 			{ '<leader>s', group = 'Search' },
 			{ '<leader>g', group = 'Git' },
 			{ '<leader>m', group = 'Mark' },

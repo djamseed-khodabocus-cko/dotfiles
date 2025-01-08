@@ -70,13 +70,13 @@ return {
 		-- .NET debugger setup
 		dap.adapters.coreclr = {
 			type = 'executable',
-			command = '/Users/djamseed/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg',
+			command = vim.fn.expand('~/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg'),
 			args = { '--interpreter=vscode' },
 		}
 
 		dap.adapters.netcoredbg = {
 			type = 'executable',
-			command = '/Users/djamseed/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg',
+			command = vim.fn.expand('~/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg'),
 			args = { '--interpreter=vscode' },
 		}
 

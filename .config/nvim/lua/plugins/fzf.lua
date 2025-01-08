@@ -22,6 +22,9 @@ return {
 			defaults = {
 				prompt = '❯ ',
 			},
+			grep = {
+				rg_opts = '--column --line-number --no-heading --color=always --smart-case --hidden --max-columns=4096 -e',
+			},
 			keymap = {
 				builtin = {
 					['<ESC>'] = 'hide',

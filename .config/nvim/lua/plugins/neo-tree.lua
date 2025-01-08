@@ -10,7 +10,7 @@ return {
 	event = 'VeryLazy',
 	cmd = 'Neotree',
 	keys = {
-		{ '<leader>e', '<CMD>Neotree toggle<CR>', desc = 'Toggle file explorer', noremap = true, silent = true },
+		{ '\\', '<CMD>Neotree toggle<CR>', desc = 'Toggle file explorer', noremap = true, silent = true },
 	},
 	config = function()
 		-- Define diagnostic icons
@@ -47,10 +47,5 @@ return {
 				},
 			},
 		})
-		require('core.utils').autocmd('BufEnter', 'neo-tree-gp', { pattern = '*' }, function()
-			if vim.bo.filetype ~= 'neo-tree' and vim.fn.winnr('$') == 1 then
-				vim.cmd('Neotree show')
-			end
-		end)
 	end,
 }
