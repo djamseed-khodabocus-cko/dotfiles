@@ -1,0 +1,125 @@
+" Options
+
+set backspace=indent,eol,start
+set breakindent
+set clipboard=unnamedplus
+set completeopt=menuone,noselect
+set encoding=UTF-8
+set expandtab
+set highlightedyank
+set ignorecase
+set incsearch
+set iskeyword=-
+set linebreak
+set mouse=a
+set nobackup
+set nohlsearch
+set noswapfile
+set nowritebackup
+set number
+set numberwidth=4
+set relativenumber
+set scrolloff=10
+set scrolloff=10
+set shiftwidth=4
+set showmatch
+set showmode
+set shell=zsh
+set signcolumn=yes
+set smartcase
+set smartindent
+set so=5
+set softtapstop=4
+set spelllang=en_us
+set splitbelow
+set splitright
+set tabstop=4
+set undofile
+set visualbell
+
+" Leader
+let mapleader = ' '
+let maplocalleader = ' '
+
+" IdeaVim - Jetbrain options
+set ideajoin
+set ideamarks
+set ideastatusicon=gray
+set idearefactormode=keep
+
+" Plugins
+set NERDTree
+set ReplaceWithRegister
+set argtextobj
+set commentary
+set multiple-cursors
+set surround
+set textobj-entire
+set which-key
+
+" Plugin settings
+let g:NERDTreeToggle='\\'
+let g:NERDTreeMapNewFile='a'
+let g:NERDTreeMapNewDir='A'
+let g:argtextobj_pairs='[:],(:),<:>'
+
+" Mappings
+" Better cursor movement
+nnoremap j gj
+nnoremap k gk
+
+" Split window management
+nnoremap <leader>sh <C-w>s
+nnoremap <leader>sv <C-w>v
+nnoremap <leader>se <C-w>=
+nnoremap <leader>sx :close<CR>
+
+" Pane navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
+
+" Exit INSERT mode with Ctrl + c
+inoremap <C-c> <ESC>
+
+" Save with Ctrl + s
+inoremap <C-s> <ESC>:w<CR><ESC>
+
+" Use Alt + Shift + j/k to move lines up/down
+nnoremap <C-A-k> :m .-2<CR>==
+nnoremap <C-A-j> :m .+1<CR>==
+vnoremap <C-A-k> :m '<-2<CR>gv=gv
+vnoremap <C-A-j> :m '>+1<CR>gv=gv
+
+" Better indentation
+nnoremp > >>
+nnoremp < <<
+vnoremap > >gv
+vnoremap < <gv
+
+" Join lines
+nnoremap J mzJ`z
+
+" Search
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" System clipboard
+nnoremap <leader>y [["+y"]]
+nnoremap <leader>Y [["+Y"]]
+
+" Better experiences
+nnoremap <space> <Nop>
+nnoremap Q <Nop>
+
+" IDE actions
+map gr <Action>(ShowUsages)
+map gI <Action>(GotoImplementation)
+map <leader>D Action>(GotoTypeDeclaration)
+map <leader>f <Action>(ReformatCode)
+map <leader>rn <Action>(RenameElement)
+map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>B <Action>(ToggleLineBreakpoint)
+map <F5> <Action>(Debug)
+map <leader>c <Action>(Stop)
