@@ -3,12 +3,22 @@
 
 return {
 	'stevearc/conform.nvim',
-	event = { 'BufReadPre', 'BufNewFile' },
+	event = { 'BufWritePre' },
+	cmd = 'ConformInfo',
+	keys = {
+		{
+			'<leader>cf',
+			function()
+				require('conform').format({ lsp_fallback = true, async = false, timeout_ms = 1000 })
+			end,
+			mode = { 'n', 'v' },
+			desc = 'Format',
+		},
+	},
 	config = function()
-		local conform = require('conform')
-
-		conform.setup({
+		require('conform').setup({
 			formatters_by_ft = {
+				cs = { 'csharpier' },
 				go = { 'goimports', 'gofumpt' },
 				json = { 'prettier' },
 				lua = { 'stylua' },
@@ -25,15 +35,5 @@ return {
 				timeout_ms = 1000,
 			},
 		})
-
-		local keymap = require('core.utils').keymap
-
-		keymap({ 'n', 'v' }, '<leader>cf', function()
-			conform.format({
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			})
-		end, { desc = 'Format' })
 	end,
 }
