@@ -21,6 +21,7 @@ return {
 				'dockerfile',
 				'go',
 				'json',
+				'java',
 				'javascript',
 				'html',
 				'lua',
