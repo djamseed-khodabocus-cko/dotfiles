@@ -7,7 +7,7 @@ case $- in
 esac
 
 # Source additional dotfiles if they exist
- for file in $ZDOTDIR/.{aliases,dockerfuncs,exports,functions}; do
+ for file in $ZDOTDIR/.{aliases,dockerfuncs,exports,functions,paths}; do
      [[ -r "$file" && -f "$file" ]] && source "$file"
  done
  unset file
