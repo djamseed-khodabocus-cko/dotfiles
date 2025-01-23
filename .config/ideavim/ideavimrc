@@ -56,6 +56,8 @@ set multiple-cursors
 set surround
 set textobj-entire
 set which-key
+" disable the timeout option
+set notimeout
 
 " Plugin settings
 let g:NERDTreeToggle='\\'
