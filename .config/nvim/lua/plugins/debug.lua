@@ -100,5 +100,22 @@ return {
 
 		-- Python debugger setup
 		require('dap-python').setup(vim.fn.expand('~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'))
+
+		-- Zig debugger setup (using LLDB)
+		dap.adapters.lldb = {
+			type = 'executable',
+			command = vim.fn.expand('/usr/bin/lldb'),
+			name = 'lldb',
+		}
+		dap.configurations.zig = {
+			{
+				name = 'Launch',
+				type = 'lldb',
+				request = 'launch',
+				program = function()
+					return vim.fn.input('Path to executable', vim.fn.getcwd() .. '/zig-out/bin', 'file')
+				end,
+			},
+		}
 	end,
 }

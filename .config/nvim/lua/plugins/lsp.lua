@@ -206,6 +206,7 @@ return {
 					'rust-analyzer',
 				},
 			},
+			zls = {},
 		}
 
 		-- Ensure the servers and tools above are installed
@@ -233,6 +234,7 @@ return {
 				'omnisharp',
 				'rust_analyzer',
 				'yamlls',
+				'zls',
 			},
 			automatic_installation = true,
 			handlers = {
