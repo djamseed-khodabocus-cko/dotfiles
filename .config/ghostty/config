@@ -40,9 +40,3 @@ command = /bin/zsh -l -c 'tmux a -t main || tmux new -s main'
 
 # Keybindings
 keybind = super+shift+r=reload_config
-keybind = super+shift+h=new_split:down
-keybind = super+shift+v=new_split:right
-keybind = super+shift+j=goto_split:bottom
-keybind = super+shift+k=goto_split:top
-keybind = super+shift+h=goto_split:left
-keybind = super+shift+l=goto_split:right
