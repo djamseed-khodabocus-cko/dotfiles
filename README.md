@@ -1,18 +1,15 @@
 # dotfiles
 
-Setup for my personal dotfiles and [Homebrew](https://brew.sh) packages. Works on \*nix, optimized for macOS.
+![banner](screen.png)
 
-![screen](screen.png)
-
-My setup includes:
+This repository hosts my personal dotfiles for macOS, using the following combo:
 
 - [Aerospace](https://github.com/nikitabobko/AeroSpace)
 - [Ghostty](https://ghostty.org)
-- [Zsh](https://zsh.org)
-- [Tmux](https://github.com/tmux/tmux)
+- [Zsh](https://zsh.org/)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [tmux](https://github.com/tmux/tmux)
 - [Neovim](https://neovim.io)
-- [Jetbrains Mono Nerd Font](https://www.programmingfonts.org/#jetbrainsmono)
 
 ## Install
 
@@ -30,15 +27,18 @@ The install script will also run `macos.sh`, which provide sensible defaults whe
 
 Update ~/.config/git/local/user with your email and name. It should look something like this:
 
-```yaml
+```sh
 [user]
     email = john@example.com
     name = John Doe
 ```
 
-Use a `.privaterc` file to save things (env vars, commands, etc...) you don't want to commit to a public repo.
-It will be sourced if present. This can look something like that:
+Use a .privaterc file to save things (env vars, commands, etc...) you don't want to commit to a public repo. It will be sourced if present. This can look something like that:
 
 ```sh
 export SOME_API_KEY="f799a61172c44960a2ad2b297ed7475d"
 ```
+
+## Misc
+
+For my Neovim setup, see [here](https://github.com/djamseed/nvim).
