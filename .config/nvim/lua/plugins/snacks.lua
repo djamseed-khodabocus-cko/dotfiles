@@ -13,10 +13,14 @@ return {
 				{ section = 'startup' },
 			},
 		},
-		notifier = {
+		image = { enabled = true, force = true },
+		indent = {
 			enabled = true,
-			timeout = 3000,
+			char = '.',
+			only_current = true,
 		},
-		quickfile = { enabled = true },
+		notifier = { enabled = true, timeout = 5000 },
+		quickfile = {},
+		words = { enabled = true },
 	},
 }
