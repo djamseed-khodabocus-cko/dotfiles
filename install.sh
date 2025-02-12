@@ -1,10 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 set -eu
 set -o pipefail
 
-cd "$HOME"
-echo 'Preparing to install...'
+print 'Preparing to install...'
 
 # Ask for administrator password upfront
 printf 'Password for your PC [\e[32m?\e[m] ' && sudo -v
@@ -18,25 +17,39 @@ echo ''
 
 # Check for Xcode command line tools and install if we don't have it
 if ! command -v xcode-select &>/dev/null; then
-    echo 'Installing Xcode command line tools...'
+    print 'Installing Xcode command line tools...'
     xcode-select --install
-    echo 'Waiting for command line tools installation for Xcode to complete...'
+    print 'Waiting for command line tools installation for Xcode to complete...'
     until command -v xcode-select &>/dev/null; do
         sleep 1
     done
 else
-    echo 'Command Line Tools for Xcode are already installed.'
+    print 'Command Line Tools for Xcode are already installed.'
 fi
 
 # Check for Homebrew and install if we don't have it
 if ! command -v brew &>/dev/null; then
-    echo 'Installing Homebrew...'
+    print 'Installing Homebrew...'
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval "$($(arch | grep -q arm64 && echo /opt/homebrew/bin/brew || echo /usr/local/bin/brew) shellenv)"
 fi
 
-echo 'Installing dotfiles...'
-git clone https://github.com/djamseed-khodabocus-cko/dotfiles ~/.dotfiles && cd ~/.dotfiles
+print 'Installing dotfiles...'
+git clone https://github.com/djamseed-khodabocus-cko/dotfiles "$HOME/.dotfiles" && cd "$HOME/.dotfiles"
+
+# Default XDG paths
+XDG_CACHE_HOME="$HOME/.cache"
+XDG_CONFIG_HOME="$HOME/.config"
+XDG_DATA_HOME="$HOME/.local/share"
+XDG_STATE_HOME="$HOME/.local/state"
+
+# Create required directories
+print "Creating required directory tree..."
+mkdir -p "$XDG_CACHE_HOME/{tldr,zsh}"
+mkdir -p "$XDG_CONFIG_HOME/{git/local}"
+mkdir -p "$XDG_DATA_HOME/{dotnet,go,tmux,zoxide,NugetPackages}"
+mkdir -p "$XDG_STATE_HOME/{less,zsh}"
+print '...done'
 
 # Update Homebrew recipes
 brew update
@@ -44,33 +57,9 @@ brew update
 # Install all dependencies with brew bundle (See Brewfile)
 brew bundle
 
-# Change the shell to Homebrew flavored zsh
-if ! grep -q "$(which zsh)" /etc/shells; then
-    sudo sh -c 'echo "$(which zsh)" >> /etc/shells'
-fi
-
-chsh -s "$(which zsh)"
-
 # Create symlinks from this repo to the $HOME directory
-find . -type f -name ".*" ! -name ".editorconfig" ! -name ".gitattributes" ! -name ".gitignore" ! -name ".gitmodules" ! -name ".config" ! -name ".git" -exec sh -c '
-    for file do
-        f=$(basename "$file")
-        ln -sfn "$PWD/$file" "$HOME/$f"
-    done
-' sh {} +
-
-# Create symlinks from the bin directory to /usr/local/bin
-for f in "$PWD"/bin/*; do
-    if [ -f "$f" ]; then
-        ln -sfn "$PWD/bin/$f" "/usr/local/bin/$f"
-    fi
-done
-
-# Ignore changes in the .gitconfig file
-git update-index --skip-worktree "$PWD"/.gitconfig
-
-# Create the .config folder in $HOME
-mkdir -p "$HOME"/.config
+ln -sfn "$PWD/.zshenv" "$HOME/.zshenv"
+ln -sfn "$PWD/.hushlogin" "$HOME/.hushlogin"
 
 # Create symlinks from the .config folder to ~/.config
 for file in "$PWD"/.config/*; do
@@ -79,7 +68,7 @@ for file in "$PWD"/.config/*; do
 done
 
 # Set macOS preferences (sane defaults)
-bash macos.sh
+source macos.sh
 
 printf '\u2728\e[1;33m Installation completed! \u2728 \e[m\n'
 read -r '?Press any key to reboot your computer...: '
