@@ -1,9 +1,11 @@
 " Options
 
+set autoindent
 set backspace=indent,eol,start
 set breakindent
 set clipboard=unnamedplus
 set completeopt=menuone,noselect
+set cursorline
 set encoding=UTF-8
 set expandtab
 set highlightedyank
@@ -15,6 +17,7 @@ set mouse=a
 set nobackup
 set nohlsearch
 set noswapfile
+set nowrap
 set nowritebackup
 set number
 set numberwidth=4
@@ -22,6 +25,7 @@ set relativenumber
 set scrolloff=10
 set scrolloff=10
 set shiftwidth=4
+set showcmd
 set showmatch
 set showmode
 set shell=zsh
@@ -48,7 +52,6 @@ set ideastatusicon=gray
 set idearefactormode=keep
 
 " Plugins
-set NERDTree
 set ReplaceWithRegister
 set argtextobj
 set commentary
@@ -60,9 +63,6 @@ set which-key
 set notimeout
 
 " Plugin settings
-let g:NERDTreeToggle='\\'
-let g:NERDTreeMapNewFile='a'
-let g:NERDTreeMapNewDir='A'
 let g:argtextobj_pairs='[:],(:),<:>'
 
 " Mappings
