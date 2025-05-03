@@ -10,6 +10,7 @@ path=(
     $HOMEBREW_PREFIX/opt/make/libexec/gnubin(N)
     $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin(N)
     $HOMEBREW_PREFIX/opt/openjdk@17/bin(N)
+    $DOTNET_CLI_HOME/.dotnet/tools(N)
     $GOPATH(N)
     $GOBIN(N)
     $CARGO_HOME/bin(N)
