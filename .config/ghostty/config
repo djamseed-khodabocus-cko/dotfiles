@@ -9,7 +9,7 @@ font-family = JetBrainsMono Nerd Font
 font-feature = -calt
 font-feature = -clig
 font-feature = -liga
-font-size = 13
+font-size = 14
 
 # Window
 confirm-close-surface = false
