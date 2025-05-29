@@ -45,8 +45,10 @@ alias ipInfo0='ipconfig getpacket en0'                                          
 alias ipInfo1='ipconfig getpacket en1'                                                       # ipInfo1:      Get info on connections for en1
 alias localip='ipconfig getifaddr en0'                                                       # localip:      Display the local address
 alias lsock='sudo lsof -i -P'                                                                # lsock:        Display open sockets
-(($+commands[rg])) && alias lsockT='sudo lsof -nP | rg TCP'                                  # lsockT:       Display only open TCP sockets
-(($+commands[rg])) && alias lsockU='sudo lsof -nP | rg UDP'                                  # lsockU:       Display only open UDP sockets
+(($+commands[rg])) && {
+    alias lsockT='sudo lsof -nP | rg TCP'                                                    # lsockT:       Display only open TCP sockets
+    alias lsockU='sudo lsof -nP | rg UDP'                                                    # lsockU:       Display only open UDP sockets
+}
 alias netCons='lsof -i'                                                                      # netCons:      Show all open TCP/IP sockets
 alias nic="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"                 # nic:          Show active network interfaces
 alias op='sudo lsof -i -P'                                                                   # op:           List of open ports
