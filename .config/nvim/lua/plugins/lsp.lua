@@ -21,7 +21,6 @@ return {
 				},
 			},
 		},
-		{ 'mfussenegger/nvim-jdtls' },
 		-- Useful status updates for LSP.
 		{
 			'j-hui/fidget.nvim',
