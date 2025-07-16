@@ -1,8 +1,9 @@
 # Theme
 theme = rose-pine
 background-blur-radius = 20
-background-opacity = 0.90
+background-opacity = 0.85
 bold-is-bright = true
+background = #000000
 
 # Fonts
 font-family = JetBrainsMono Nerd Font
