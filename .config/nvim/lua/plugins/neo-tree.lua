@@ -7,11 +7,10 @@ return {
 	dependencies = {
 		'MunifTanjim/nui.nvim',
 	},
-	-- event = 'VeryLazy',
-	-- cmd = 'Neotree',
-	-- keys = {
-	-- 	{ '\\', '<CMD>Neotree toggle<CR>', desc = 'Toggle file explorer', noremap = true, silent = true },
-	-- },
+	lazy = false,
+	keys = {
+		{ '\\', '<CMD>Neotree toggle<CR>', desc = 'Toggle file explorer', noremap = true, silent = true },
+	},
 	config = function()
 		-- Define diagnostic icons
 		vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
@@ -47,7 +46,5 @@ return {
 				},
 			},
 		})
-
-		require('core.utils').keymap('n', '\\', '<CMD>Neotree toggle<CR>', { desc = 'Toggle file explorer', noremap = true, silent = true })
 	end,
 }
