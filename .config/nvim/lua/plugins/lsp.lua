@@ -59,7 +59,7 @@ return {
 				-- word under your cursor when your cursor rests there for a little while.
 				-- When you move your cursor, the highlights will be cleared (the second autocommand).
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+				if client and client.supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
 					local highlight_augroup = vim.api.nvim_create_augroup('user-lsp-highlight', { clear = false })
 					vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
 						buffer = event.buf,
@@ -83,7 +83,7 @@ return {
 				end
 
 				-- The following code creates a keymap to toggle inlay hints, if the language server supports them
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+				if client and client.supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 					map('<leader>ch', function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, '[C]ode [H]ints')

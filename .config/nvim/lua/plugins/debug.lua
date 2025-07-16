@@ -24,6 +24,7 @@ return {
 		local keymap = require('core.utils').keymap
 
 		require('mason-nvim-dap').setup({
+			automatic_installation = true,
 			automatic_setup = true,
 			handlers = {}, -- Can provide additional configuration to handlers
 			ensure_installed = { -- Update debuggers here based on the language being used
