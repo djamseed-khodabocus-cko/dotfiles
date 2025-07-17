@@ -5,7 +5,8 @@ return {
 	'folke/todo-comments.nvim',
 	event = 'VeryLazy',
 	keys = {
-		{ '<leader>ft', '<CMD>TodoFzfLua<CR>', desc = 'Find todos', noremap = true, silent = true },
+		{ '<leader>xt', '<cmd>Trouble todo<CR>', desc = 'Find todos', noremap = true, silent = true },
+		{ '<leader>xT', '<cmd>Trouble todo filter = {tag = {TODO,FIX,FIXME}}<CR>', desc = 'Find filtered todos', noremap = true, silent = true },
 	},
 	opts = {},
 }

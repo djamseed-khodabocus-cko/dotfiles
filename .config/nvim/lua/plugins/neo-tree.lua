@@ -9,7 +9,7 @@ return {
 	},
 	lazy = false,
 	keys = {
-		{ '\\', '<CMD>Neotree toggle<CR>', desc = 'Toggle file explorer', noremap = true, silent = true },
+		{ '\\', '<cmd>Neotree toggle<CR>', desc = 'Toggle file explorer', noremap = true, silent = true },
 	},
 	config = function()
 		-- Define diagnostic icons

@@ -20,7 +20,7 @@ return {
 			only_current = true,
 		},
 		notifier = { enabled = true, timeout = 5000 },
-		quickfile = {},
+		quickfile = { enabled = true },
 		words = { enabled = true },
 	},
 }

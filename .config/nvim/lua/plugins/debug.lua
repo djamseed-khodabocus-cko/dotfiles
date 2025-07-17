@@ -36,8 +36,10 @@ return {
 
 		require('nvim-dap-virtual-text').setup({})
 
+		---@diagnostic disable-next-line: missing-fields
 		dapui.setup({
 			icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+			---@diagnostic disable-next-line: missing-fields
 			controls = {
 				icons = {
 					pause = '⏸',
@@ -59,14 +61,14 @@ return {
 		dap.listeners.before.event_terminated['dapui_config'] = dapui.close
 		dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-		keymap('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
-		keymap('n', '<F7>', dap.step_into, { desc = 'Debug: Step Into' })
-		keymap('n', '<F8>', dap.step_over, { desc = 'Debug: Step Over' })
-		keymap('n', '<S-F8>', dap.step_out, { desc = 'Debug: Step Out' })
-		keymap('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-		keymap('n', '<leader>B', dap.set_breakpoint, { desc = 'Debug: Set Breakpoint' })
-		keymap('n', '<leader>bc', dap.clear_breakpoints, { desc = 'Debug: Clear all Breakpoints' })
-		keymap('n', '<F9>', dapui.toggle, { desc = 'Debug: See last session result' })
+		keymap('<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
+		keymap('<F7>', dap.step_into, { desc = 'Debug: Step Into' })
+		keymap('<F8>', dap.step_over, { desc = 'Debug: Step Over' })
+		keymap('<S-F8>', dap.step_out, { desc = 'Debug: Step Out' })
+		keymap('<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+		keymap('<leader>B', dap.set_breakpoint, { desc = 'Debug: Set Breakpoint' })
+		keymap('<leader>bc', dap.clear_breakpoints, { desc = 'Debug: Clear all Breakpoints' })
+		keymap('<F9>', dapui.toggle, { desc = 'Debug: See last session result' })
 
 		-- .NET debugger setup
 		dap.adapters.coreclr = {

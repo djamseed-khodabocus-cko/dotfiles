@@ -9,7 +9,7 @@ return {
 		{
 			'<leader>cf',
 			function()
-				require('conform').format({ lsp_fallback = true, async = false, timeout_ms = 1000 })
+				require('conform').format({ lsp_format = 'fallback', async = true, timeout_ms = 500 })
 			end,
 			mode = { 'n', 'v' },
 			desc = 'Format',
@@ -22,7 +22,6 @@ return {
 					local useDotnet = not vim.fn.executable('csharpier')
 					local command = useDotnet and 'dotnet csharpier' or 'csharpier'
 					local version_out = vim.fn.system(command .. ' --version')
-					local version_result = version_out[#version_out]
 					local major_version = tonumber((version_out or ''):match('^(%d+)')) or 0
 					local is_new = major_version >= 1
 					local args = is_new and { 'format', '$FILENAME' } or { '--write-stdout' }
@@ -48,10 +47,11 @@ return {
 				zig = { 'zig fmt' },
 			},
 			format_on_save = {
-				lsp_fallback = true,
+				lsp_format = 'fallback',
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 500,
 			},
+			notify_on_error = false,
 		})
 	end,
 }

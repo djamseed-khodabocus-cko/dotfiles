@@ -1,10 +1,12 @@
 local M = {}
 
----@param mode string|table
 ---@param lhs string
 ---@param rhs string|function
----@param opts table | nil
-function M.keymap(mode, lhs, rhs, opts)
+---@param opts table|nil
+---@param mode string|table|nil
+function M.keymap(lhs, rhs, opts, mode)
+	mode = mode or 'n'
+	opts = opts or {}
 	local options = { noremap = true, silent = true }
 	if opts then
 		options = vim.tbl_extend('force', options, opts)

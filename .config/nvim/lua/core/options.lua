@@ -1,58 +1,62 @@
 local autocmd = require('core.utils').autocmd
-local opt = vim.opt
 
 -- Tab / Indentation
-opt.autoindent = true -- Copy indent from current line when starting new line
-opt.breakindent = true -- Enable wrapped lines to be indented to line up with the start of the line
-opt.cindent = true -- Enable automatic C programming indenting
-opt.expandtab = true -- Expand tabs to spaces
-opt.shiftwidth = 4 -- 4 spaces for indent width
-opt.softtabstop = 4 -- 4 spaces for tabs
-opt.tabstop = 4 -- Number of spaces that a <Tab> in the buffer counts for
-opt.wrap = false -- Disable line wrapping
+vim.opt.autoindent = true -- Copy indent from current line when starting new line
+vim.opt.breakindent = true -- Enable wrapped lines to be indented to line up with the start of the line
+vim.opt.cindent = true -- Enable automatic C programming indenting
+vim.opt.expandtab = true -- Expand tabs to spaces
+vim.opt.shiftwidth = 4 -- 4 spaces for indent width
+vim.opt.softtabstop = 4 -- 4 spaces for tabs
+vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the buffer counts for
+vim.opt.wrap = false -- Disable line wrapping
 
 -- Search
-opt.grepformat = '%f:%l:%c:%m' -- Format to recognize for the ':grep' command output
-opt.grepprg = 'rg --vimgrep' -- Use 'rg' for the ':grep' command
-opt.hlsearch = false -- Do not highlight search terms
-opt.ignorecase = true -- Ignore case when searching
-opt.incsearch = true -- Makes search act like search in modern browsers
-opt.smartcase = true -- If you include mixed case in your search, assumes you want case-sensitive search
+vim.opt.grepformat = '%f:%l:%c:%m' -- Format to recognize for the ':grep' command output
+vim.opt.grepprg = 'rg --vimgrep' -- Use 'rg' for the ':grep' command
+vim.opt.hlsearch = false -- Do not highlight search terms
+vim.opt.ignorecase = true -- Ignore case when searching
+vim.opt.inccommand = 'split' -- Preview substitution live
+vim.opt.incsearch = true -- Makes search act like search in modern browsers
+vim.opt.smartcase = true -- If you include mixed case in your search, assumes you want case-sensitive search
 
 -- Appearance
-opt.background = 'dark' -- ColorSchemes that can be lihght or dark will be made dark
-opt.cmdheight = 1 -- Numnber of screen lines to use for the command-line
-opt.completeopt = 'menuone,noselect' -- Better completion experience
-opt.fillchars = 'eob: ' -- Remove the `~` character at the end of a buffer
-opt.number = true -- Show absolute line number on cursor (when relative number is on)
-opt.pumblend = 19 -- Enables pseudo-transparency for the popup-menu
-opt.relativenumber = true -- Show relative line number
-opt.scrolloff = 10 -- Show a minimum of 10 lines below the cursor
-opt.signcolumn = 'yes' -- Show sign column so that text doesn't shift
-opt.termguicolors = true -- Enable 24-bit RGB color
+vim.opt.background = 'dark' -- ColorSchemes that can be lihght or dark will be made dark
+vim.opt.cmdheight = 1 -- Numnber of screen lines to use for the command-line
+vim.opt.completeopt = 'menuone,noinsert,noselect' -- Better completion experience
+vim.opt.fillchars = 'eob: ' -- Remove the `~` character at the end of a buffer
+vim.opt.number = true -- Show absolute line number on cursor (when relative number is on)
+vim.opt.pumblend = 10 -- Enables pseudo-transparency for the popup-menu
+vim.opt.relativenumber = true -- Show relative line number
+vim.opt.scrolloff = 8 -- Show a minimum of 8 lines below the cursor
+vim.opt.signcolumn = 'yes' -- Show sign column so that text doesn't shift
+vim.opt.termguicolors = true -- Enable 24-bit RGB color
+
+-- File handlding
+vim.opt.autoread = true -- Auto reload files changed outside nvim
+vim.opt.backup = false -- Disable backup
+vim.opt.swapfile = false -- Disable the use of a swapfile for a buffer
+vim.opt.undofile = true -- Save undo history by default
+vim.opt.writebackup = false -- Disable backup
 
 -- Behaviour
-opt.belloff = 'all' -- Turn the bell off
-opt.backspace = 'indent,eol,start' -- Allow backspace on indent, end of line, or insert mode start position
-opt.backup = false -- Disable backup
-opt.cursorline = true -- Highlight the current cursor line
-opt.guicursor = '' -- Set the cursor to block in insert mode
-opt.iskeyword:append('-') -- Treat words with dashes as a single word
-opt.inccommand = 'split' -- Preview substitution live
-opt.mouse:append('a') -- Enable mouse mode
-opt.showcmd = true -- Show command in the last line of the screen
-opt.showmode = false -- If in Insert, Replace or Visual mode, put a message on the last line
-opt.splitbelow = true -- Split horizontal window to the bottom
-opt.splitright = true -- Split vertical window to the right
-opt.swapfile = false -- Disable the use of a swapfile for a buffer
-opt.timeoutlen = 300 -- Decrease mapped sequence wait time
-opt.undofile = true -- Save undo history by default
-opt.undolevels = 100 -- Max number of changes tht can be undone
-opt.updatetime = 50 -- Make updates happen faster
-opt.writebackup = false -- Disable backup
+vim.opt.backspace = 'indent,eol,start' -- Allow backspace on indent, end of line, or insert mode start position
+vim.opt.belloff = 'all' -- Turn the bell off
+vim.opt.confirm = true -- Show a dialog asking to save the current file(s)
+vim.opt.cursorline = true -- Highlight the current cursor line
+vim.opt.guicursor = '' -- Set the cursor to block in insert mode
+vim.opt.iskeyword:append('-') -- Treat words with dashes as a single word
+vim.opt.mouse:append('a') -- Enable mouse mode
+vim.opt.showcmd = true -- Show command in the last line of the screen
+vim.opt.showmode = false -- If in Insert, Replace or Visual mode, put a message on the last line
+vim.opt.splitbelow = true -- Split horizontal window to the bottom
+vim.opt.splitright = true -- Split vertical window to the right
+vim.opt.timeoutlen = 300 -- Decrease mapped sequence wait time
+vim.opt.undolevels = 100 -- Max number of changes that can be undone
+vim.opt.updatetime = 50 -- Make updates happen faster
+
 -- Folding
-opt.foldmethod = 'marker' -- Use markers to specify folds
-opt.foldlevel = 99 -- Folding when above 99
+vim.opt.foldmethod = 'marker' -- Use markers to specify folds
+vim.opt.foldlevel = 99 -- Folding when above 99
 
 -- Custom settings for the Cursor line
 local set_cursorline = function(event, value, pattern)
@@ -67,5 +71,5 @@ set_cursorline('WinEnter', true)
 -- Use system clipboard as default register
 -- Schedule the setting after `UiEnter` because it can increase startup-time
 vim.schedule(function()
-   opt.clipboard:append('unnamedplus')
+	vim.opt.clipboard:append('unnamedplus')
 end)
