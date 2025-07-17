@@ -31,6 +31,8 @@ Update ~/.config/git/local/user with your email and name. It should look somethi
 [user]
     email = john@example.com
     name = John Doe
+[github.com]
+    user = john-doe
 ```
 
 Use a .privaterc file to save things (env vars, commands, etc...) you don't want to commit to a public repo. It will be sourced if present. This can look something like that:
