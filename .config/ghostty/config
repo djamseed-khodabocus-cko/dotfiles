@@ -1,39 +1,37 @@
-# Theme
+# Color theme
 theme = rose-pine
-background-blur-radius = 20
+background = #000000
+background-blur-radius = 40
 background-opacity = 0.85
 bold-is-bright = true
-background = #000000
 
-# Fonts
+# Font
 font-family = JetBrainsMono Nerd Font
 font-feature = -calt
 font-feature = -clig
 font-feature = -liga
-font-size = 14
+font-size = 15
+
+# Cursor
+cursor-invert-fg-bg=true
+cursor-style-blink = false
 
 # Window
 confirm-close-surface = false
 macos-titlebar-style = hidden
-shell-integration = zsh
-shell-integration-features = no-cursor, sudo
+mouse-hide-while-typing = true
+quit-after-last-window-closed = true
 window-padding-balance = true
 window-padding-x = 10
 window-padding-y = 10
-quit-after-last-window-closed = true
 
-# Cursor
-cursor-color = white
-cursor-style-blink = false
-
-# Mouse
-mouse-hide-while-typing = true
-
-# Misc
+# Extras
 copy-on-select = true
 desktop-notifications = false
 link-url = true
 macos-option-as-alt = true
+shell-integration = zsh
+shell-integration-features = no-cursor, sudo
 scrollback-limit = 10000
 
 # Startup
