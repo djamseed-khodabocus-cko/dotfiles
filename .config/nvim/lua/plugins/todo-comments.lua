@@ -2,11 +2,10 @@
 -- https://github.com/folke/todo-comments.nvim
 
 return {
-	'folke/todo-comments.nvim',
-	event = 'VeryLazy',
-	keys = {
-		{ '<leader>xt', '<cmd>Trouble todo<CR>', desc = 'Find todos', noremap = true, silent = true },
-		{ '<leader>xT', '<cmd>Trouble todo filter = {tag = {TODO,FIX,FIXME}}<CR>', desc = 'Find filtered todos', noremap = true, silent = true },
-	},
-	opts = {},
+  'folke/todo-comments.nvim',
+  event = { 'BufReadPost', 'BufNewFile' },
+  keys = {
+    { '<leader>xt', ':TodoQuickFix<CR>', desc = 'List todos', noremap = true, silent = true },
+  },
+  opts = {},
 }

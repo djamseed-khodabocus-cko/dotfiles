@@ -2,123 +2,120 @@
 -- https://github.com/mfussenegger/nvim-dap
 
 return {
-	'mfussenegger/nvim-dap',
-	dependencies = {
-		-- A UI for nvim-dap
-		{ 'rcarriga/nvim-dap-ui' },
-		-- Asynchronous IO librady, required by nvim-dap-ui
-		{ 'nvim-neotest/nvim-nio', lazy = true },
-		-- Bridges gaps between mason and nvim-dap
-		{ 'jay-babu/mason-nvim-dap.nvim', lazy = true },
-		-- Adds virtual text support for nvim-dap
-		{ 'theHamsta/nvim-dap-virtual-text', lazy = true },
+  'mfussenegger/nvim-dap',
+  dependencies = {
+    -- a UI for nvim-dap
+    { 'rcarriga/nvim-dap-ui' },
+    -- asynchronous IO librady, required by nvim-dap-ui
+    { 'nvim-neotest/nvim-nio', lazy = true },
+    -- bridges gaps between mason and nvim-dap
+    { 'jay-babu/mason-nvim-dap.nvim', lazy = true },
+    -- Adds virtual text support for nvim-dap
+    { 'theHamsta/nvim-dap-virtual-text', lazy = true },
+    -- debugger extensions
+    { 'leoluz/nvim-dap-go', ft = 'go' },
+    { 'mfussenegger/nvim-dap-python', ft = 'python' },
+  },
+  keys = {
+    { '<F5>', '<cmd>DapContinue<CR>', desc = 'Debug: Start/Continue' },
+    { '<F7>', '<cmd>DapStepInto<CR>', desc = 'Debug: Step Into' },
+    { '<F8>', '<cmd>DapStepOver<CR>', desc = 'Debug: Step Over' },
+    { '<S-F8>', '<cmd>DapStepOut<CR>', desc = 'Debug: Step Out' },
+    { '<leader>b', '<cmd>DapToggleBreakpoint<CR>', desc = 'Debug: Toggle Breakpoint' },
+    { '<leader>B', '<cmd>DapSetBreakpoint<CR>', desc = 'Debug: Set Breakpoint' },
+    { '<leader>bc', '<cmd>DapClearBreakpoints<CR>', desc = 'Debug: Clear all Breakpoints' },
+    { '<F9>', "<cmd>lua require('dapui').toggle()<CR>", desc = 'Debug: See last session result' },
+  },
+  config = function()
+    local dap = require('dap')
+    local dapui = require('dapui')
 
-		-- Debugger extensions
-		{ 'leoluz/nvim-dap-go', ft = 'go' },
-		{ 'mfussenegger/nvim-dap-python', ft = 'python' },
-	},
-	event = 'VeryLazy',
-	config = function()
-		local dap = require('dap')
-		local dapui = require('dapui')
-		local keymap = require('core.utils').keymap
+    require('mason-nvim-dap').setup({
+      automatic_setup = true,
+      handlers = {}, -- can provide additional configuration to handlers
+      ensure_installed = { -- update debuggers here based on the language being used
+        'delve', -- Go debugger
+        'netcoredbg', -- .NET debuffer
+        'python', -- Python debugger
+      },
+    })
 
-		require('mason-nvim-dap').setup({
-			automatic_installation = true,
-			automatic_setup = true,
-			handlers = {}, -- Can provide additional configuration to handlers
-			ensure_installed = { -- Update debuggers here based on the language being used
-				'delve', -- Go debugger
-				'netcoredbg', -- .NET debugger
-				'python', -- Python debugger
-			},
-		})
+    require('nvim-dap-virtual-text').setup()
 
-		require('nvim-dap-virtual-text').setup({})
+    dapui.setup({
+      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+      controls = {
+        icons = {
+          pause = '⏸',
+          play = '▶',
+          step_into = '⏎',
+          step_over = '⏭',
+          step_out = '⏮',
+          step_back = 'b',
+          run_last = '▶▶',
+          terminate = '⏹',
+          disconnect = '⏏',
+        },
+      },
+    })
 
-		---@diagnostic disable-next-line: missing-fields
-		dapui.setup({
-			icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-			---@diagnostic disable-next-line: missing-fields
-			controls = {
-				icons = {
-					pause = '⏸',
-					play = '▶',
-					step_into = '⏎',
-					step_over = '⏭',
-					step_out = '⏮',
-					step_back = 'b',
-					run_last = '▶▶',
-					terminate = '⏹',
-					disconnect = '⏏',
-				},
-			},
-		})
+    vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
 
-		vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+    dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+    dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-		dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-		dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-		dap.listeners.before.event_exited['dapui_config'] = dapui.close
+    -- .NET debugger setup
+    dap.adapters.coreclr = {
+      type = 'executable',
+      command = vim.fn.expand('~/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg'),
+      args = { '--interpreter=vscode' },
+    }
 
-		keymap('<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
-		keymap('<F7>', dap.step_into, { desc = 'Debug: Step Into' })
-		keymap('<F8>', dap.step_over, { desc = 'Debug: Step Over' })
-		keymap('<S-F8>', dap.step_out, { desc = 'Debug: Step Out' })
-		keymap('<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-		keymap('<leader>B', dap.set_breakpoint, { desc = 'Debug: Set Breakpoint' })
-		keymap('<leader>bc', dap.clear_breakpoints, { desc = 'Debug: Clear all Breakpoints' })
-		keymap('<F9>', dapui.toggle, { desc = 'Debug: See last session result' })
+    dap.adapters.netcoredbg = {
+      type = 'executable',
+      command = vim.fn.expand('~/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg'),
+      args = { '--interpreter=vscode' },
+    }
 
-		-- .NET debugger setup
-		dap.adapters.coreclr = {
-			type = 'executable',
-			command = vim.fn.expand('~/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg'),
-			args = { '--interpreter=vscode' },
-		}
+    dap.configurations.cs = {
+      {
+        type = 'coreclr',
+        name = 'Launch - netcoredbg',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+        end,
+      },
+    }
 
-		dap.adapters.netcoredbg = {
-			type = 'executable',
-			command = vim.fn.expand('~/.local/share/nvim/mason/packages/netcoredbg/libexec/netcoredbg/netcoredbg'),
-			args = { '--interpreter=vscode' },
-		}
+    -- Go debugger setup
+    require('dap-go').setup({
+      delve = {
+        path = vim.fn.expand('~/.local/share/nvim/mason/bin/dlv'),
+      },
+    })
 
-		dap.configurations.cs = {
-			{
-				type = 'coreclr',
-				name = 'Launch - netcoredbg',
-				request = 'launch',
-				program = function()
-					return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-				end,
-			},
-		}
+    -- Python debugger setup
+    require('dap-python').setup(vim.fn.expand('~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'))
 
-		-- Go debugger setup
-		require('dap-go').setup({
-			delve = {
-				path = vim.fn.expand('~/.local/share/nvim/mason/bin/dlv'),
-			},
-		})
-
-		-- Python debugger setup
-		require('dap-python').setup(vim.fn.expand('~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'))
-
-		-- Zig debugger setup (using LLDB)
-		dap.adapters.lldb = {
-			type = 'executable',
-			command = vim.fn.expand('/usr/bin/lldb'),
-			name = 'lldb',
-		}
-		dap.configurations.zig = {
-			{
-				name = 'Launch',
-				type = 'lldb',
-				request = 'launch',
-				program = function()
-					return vim.fn.input('Path to executable', vim.fn.getcwd() .. '/zig-out/bin', 'file')
-				end,
-			},
-		}
-	end,
+    -- Zig debugger setup
+    dap.adapters.lldb = {
+      type = 'executable',
+      command = '/usr/local/opt/llvm/bin/lldb-dap',
+      name = 'lldb',
+    }
+    dap.configurations.zig = {
+      {
+        name = 'Launch Zig',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/zig-out/bin/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+      },
+    }
+  end,
 }
