@@ -7,7 +7,7 @@ return {
   lazy = false,
   config = function()
     require('rose-pine').setup({
-      variant = 'main',
+      variant = 'moon',
       styles = {
         italic = false,
         transparency = true,
