@@ -4,11 +4,10 @@ set autoindent
 set backspace=indent,eol,start
 set breakindent
 set clipboard=unnamedplus
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 set cursorline
 set encoding=UTF-8
 set expandtab
-set highlightedyank
 set ignorecase
 set incsearch
 set linebreak
@@ -39,6 +38,7 @@ set splitright
 set tabstop=4
 set undofile
 set visualbell
+set notimeout
 
 " Leader
 let mapleader = ' '
@@ -54,12 +54,12 @@ set idearefactormode=keep
 set ReplaceWithRegister
 set argtextobj
 set commentary
-set multiple-cursors
+set highlightedyank
+set matchit
+set mini-ai
 set surround
 set textobj-entire
-set which-key
 " disable the timeout option
-set notimeout
 
 " Plugin settings
 let g:argtextobj_pairs='[:],(:),<:>'
@@ -68,12 +68,6 @@ let g:argtextobj_pairs='[:],(:),<:>'
 " Better cursor movement
 nnoremap j gj
 nnoremap k gk
-
-" Split window management
-nnoremap <leader>sh <C-w>s
-nnoremap <leader>sv <C-w>v
-nnoremap <leader>se <C-w>=
-nnoremap <leader>sx :close<CR>
 
 " Pane navigation
 nnoremap <C-h> <C-w>h
@@ -115,12 +109,17 @@ nnoremap <space> <Nop>
 nnoremap Q <Nop>
 
 " IDE actions
-map gr <Action>(ShowUsages)
-map gI <Action>(GotoImplementation)
-map <leader>D Action>(GotoTypeDeclaration)
-map <leader>f <Action>(ReformatCode)
-map <leader>rn <Action>(RenameElement)
-map <leader>z <Action>(ToggleDistractionFreeMode)
-map <leader>B <Action>(ToggleLineBreakpoint)
-map <F5> <Action>(Debug)
-map <leader>c <Action>(Stop)
+nmap K <Action>(QuickDocumentation)
+nmap gd <Action>(GotoDeclaration)
+nmap gO <Action>(FileStructurePopup)
+nmap gs <Action>(ParameterInfo)
+nmap gra <Action>(ShowIntentionActions)
+vmap gra <Action>(ShowIntentionActions)
+nmap gri <Action>(GotoImplementation)
+nmap grn <Action>(Rename)
+nmap grr <Action>(ShowUsages)
+nmap grt <Action>(GotoTypeDeclaration)
+
+nmap <leader>b <Action>(Debug)
+nmap <leader>f <Action>(ReformatCode)
+nmap <leader>z <Action>(ToggleDistractionFreeMode)
