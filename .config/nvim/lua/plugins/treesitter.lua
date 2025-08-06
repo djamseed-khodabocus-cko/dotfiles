@@ -50,49 +50,5 @@ return {
         node_decremental = '-',
       },
     },
-    textobjects = {
-      select = {
-        enable = true,
-        -- automatically jump forward to textobj, similar to targets.vim
-        lookahead = true,
-        keymaps = {
-          -- can also use the capture groups defined in textobjects.scm
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
-          ['af'] = '@function.outer',
-          ['if'] = '@function.inner',
-          ['ap'] = '@parameter.outer',
-          ['ip'] = '@parameter.inner',
-        },
-        selection_modes = {
-          ['@parameter.outer'] = 'v',
-          ['@parameter.inner'] = 'v',
-          ['@function.outer'] = 'v',
-          ['@class.outer'] = '<C-v>',
-        },
-        include_surrounding_whitespace = false,
-      },
-      move = {
-        enable = true,
-        set_jumps = true,
-        goto_next_start = {
-          [']f'] = '@function.outer',
-          [']c'] = '@class.outer',
-        },
-        goto_previous_start = {
-          ['[f'] = '@function.outer',
-          ['[c'] = '@class.outer',
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ['<leader>a'] = '@parameter.inner',
-        },
-        swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
-        },
-      },
-    },
   },
 }
