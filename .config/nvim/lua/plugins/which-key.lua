@@ -47,8 +47,9 @@ return {
       { '<leader>b', group = 'Debug' },
       { '<leader>c', group = 'Code' },
       { '<leader>f', group = 'Find' },
-      { '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
+      { '<leader>g', group = 'Git Hunk', mode = { 'n', 'v' } },
       { '<leader>t', group = 'Toggle features' },
+      { '<leader>x', group = 'Todos' },
     },
   },
 }
