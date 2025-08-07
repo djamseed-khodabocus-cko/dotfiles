@@ -1,7 +1,40 @@
 #!/usr/bin/env sh
 
+# This command is the one that loads the scripting addition
+# Configure your user to execute `yabai --load-sa` as the root user without having to enter a password.
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# Applications
+yabai -m rule --add app="^Preferences$" manage=off
+yabai -m rule --add app="^Settings$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^QuickTime Player$" manage=off
+yabai -m rule --add app="^Keka$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add app="^Music$" manage=off
+yabai -m rule --add app="^TV$" manage=off
+
+# Spaces
+yabai -m space 1 --label browser
+yabai -m space 2 --label terminal
+yabai -m space 3 --label ide
+yabai -m space 4 --label comms
+yabai -m space 5 --label default
+
+yabai -m rule --add app="^Arc$" space=browser
+yabai -m rule --add app="^Ghostty$" space=terminal
+yabai -m rule --add app="^Rider$" space=ide
+yabai -m rule --add app="^Slack$" space=comms
+yabai -m rule --add app="^.*$" space=desk5
+
+# Set all apps to the "normal" sub-layer, otherwise they all start on the "below"
+# sub-layer. Doing this fixed the issue I had with floating windows with OBS,
+# davinci resolve and other apps where their floating windows would show on top
+# of other apps
+yabai -m rule --add app=".*" sub-layer=normal
 
 # Global settings
 yabai -m config \
@@ -22,22 +55,6 @@ yabai -m config \
     window_gap 10 \
     layout bsp
 
+yabai -m rule --apply
+
 echo "yabai configuration loaded.."
-
-# Applications
-yabai -m rule --add app="^Preferences$" manage=off
-yabai -m rule --add app="^Settings$" manage=off
-yabai -m rule --add app="^System Settings$" manage=off
-yabai -m rule --add app="^Archive Utility$" manage=off
-yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^QuickTime Player$" manage=off
-yabai -m rule --add app="^Keka$" manage=off
-yabai -m rule --add app="^Raycast$" manage=off
-yabai -m rule --add app="^Music$" manage=off
-yabai -m rule --add app="^TV$" manage=off
-
-yabai -m rule --add app="^Arc$" space=^1
-yabai -m rule --add app="^Alacritty$" space=^2
-yabai -m rule --add app="^Rider$" space=3
-yabai -m rule --add app="^Slack$" space=4
-yabai -m rule --add app="^Spotify$" space=9
