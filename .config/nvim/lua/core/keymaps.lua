@@ -7,8 +7,8 @@ vim.keymap.set('n', 'Q', '<Nop>', { silent = true })
 -- use ctrl+c to exit insert mode (useful for visual-block mode)
 vim.keymap.set('i', '<C-c>', '<Esc>', { desc = 'Exit Insert mode', noremap = true, silent = true })
 
--- use ctrl+q to quit the current window
--- vim.keymap.set('n', '<C-q>', ':q<CR>', { desc = 'Quit the current window', noremap = true, silent = true })
+-- use <leader>+q to quit the current window
+vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit the current window', noremap = true, silent = true })
 
 -- use ctrl+s to write the current to file
 vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<C-s>', '<cmd>w<CR><Esc>', { desc = 'Write the current buffer to file', noremap = true, silent = true })
