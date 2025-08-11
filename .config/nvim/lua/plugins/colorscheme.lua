@@ -13,7 +13,7 @@ return {
         transparency = true,
       },
       highlight_groups = {
-        StatusLine = { fg = 'love', bg = 'surface', blend = 10 },
+        -- StatusLine = { fg = 'love', bg = 'surface', blend = 10 },
       },
     })
     vim.cmd('colorscheme rose-pine')
