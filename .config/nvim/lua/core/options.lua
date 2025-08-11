@@ -16,13 +16,10 @@ vim.opt.grepprg = 'rg --vimgrep --smart-case' -- program to use for the `:grep` 
 vim.opt.hlsearch = false -- do not highlight matches on previous search terms
 vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.inccommand = 'split' -- preview substitution live
-vim.opt.incsearch = true -- show search matches when typing search command
 vim.opt.smartcase = true -- enable case-insensitive search
 
 -- Appearance
-vim.opt.background = 'dark' -- `dark` or `light`, used for highlight colors
 vim.opt.completeopt = 'menu,menuone,noselect' -- Better completion experience
-vim.opt.cursorline = false -- do not highlight the screen line of the cursor
 vim.opt.fillchars = { eob = ' ' } -- remove the `~` character at the end of a buffer
 vim.opt.guicursor = 'n-v-c-sm:block-blinkwait175-blinkoff150-blinkon175' -- cursor styling for each mode
 vim.opt.number = true -- show absolute line numbers
@@ -32,10 +29,9 @@ vim.opt.relativenumber = true -- show relative line numbers
 vim.opt.scrolloff = 8 -- minimum number of lines to show above and below the cursor
 vim.opt.signcolumn = 'yes' -- show sign column so that test doesn't shift
 vim.opt.termguicolors = true -- enable 24-bit RGB color
-vim.o.winborder = 'rounded'
+vim.o.winborder = 'rounded' -- default border style of floating windows
 
 -- File handling
-vim.opt.autoread = true -- read file when changed outside of Neovim
 vim.opt.backup = false -- disable backup file
 vim.opt.swapfile = false -- disable swapfile for a buffer
 vim.opt.undofile = true -- save undo information in a file
@@ -43,17 +39,13 @@ vim.opt.undolevels = 100 -- maximum number of changes that can be undone
 vim.opt.writebackup = false -- disable backup when overwriting a file
 
 -- Behaviour
-vim.opt.backspace = 'indent,eol,start' -- allow backspace on indent, end of line, and insert mode start position
-vim.opt.belloff = 'all' -- turn the bell off for all events
 vim.opt.confirm = true -- dialog that asks to confirm saving changes before exiting modified buffer
-vim.opt.foldlevel = 99 -- close folder when above 99
-vim.opt.foldmethod = 'marker' -- use markers to specify folds
 vim.opt.isfname:append('@-@') -- include `@` in file names and path names
 vim.opt.iskeyword:append('-') -- treat words with dahes as a single word
 vim.opt.showmode = false -- if in inser, replace or visual mode, put a message on the last line
 vim.opt.splitbelow = true -- new window from split is below the current one
 vim.opt.splitright = true -- new window is put right of the current one
-vim.opt.timeoutlen = 500 -- time in milliseconds to wait for a mapped sequence to complete
+vim.opt.timeoutlen = 600 -- time in milliseconds to wait for a mapped sequence to complete
 vim.opt.updatetime = 100 -- faster completion
 
 -- use system clipboard as default register

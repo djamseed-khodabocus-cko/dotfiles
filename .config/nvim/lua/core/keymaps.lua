@@ -11,7 +11,7 @@ vim.keymap.set('i', '<C-c>', '<Esc>', { desc = 'Exit Insert mode', noremap = tru
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit the current window', noremap = true, silent = true })
 
 -- use ctrl+s to write the current to file
-vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<C-s>', '<cmd>w<CR><Esc>', { desc = 'Write the current buffer to file', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v', 'x' }, '<C-s>', '<cmd>w<CR><Esc>', { desc = 'Write the current buffer to file', noremap = true, silent = true })
 
 -- better cusror movement
 vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = 'Move cusror down' })
@@ -38,12 +38,8 @@ vim.keymap.set('n', '<C-A-Left>', ':vertical resize -2<CR>', { desc = 'Decrease 
 vim.keymap.set('n', '<C-A-Right>', ':vertical resize +2<CR>', { desc = 'Increase window width', noremap = true, silent = true })
 
 -- use ctrl+alt+j/k to move lines up/down
-vim.keymap.set('n', '<C-A-j>', ':m .+1<CR>==', { desc = 'Move line(s) down', noremap = true, silent = true })
-vim.keymap.set('n', '<C-A-k>', ':m .-2<CR>==', { desc = 'Move line(s) up', noremap = true, silent = true })
-vim.keymap.set('i', '<C-A-j>', '<ESC>:m .+1<CR>==gi', { desc = 'Move lines(s) down', noremap = true, silent = true })
-vim.keymap.set('i', '<C-A-k>', '<ESC>:m .-2<CR>==gi', { desc = 'Move line(s) up', noremap = true, silent = true })
-vim.keymap.set('v', '<C-A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move line(s) down', noremap = true, silent = true })
-vim.keymap.set('v', '<C-A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move line(s) up', noremap = true, silent = true })
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move line(s) down', noremap = true, silent = true })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move line(s) up', noremap = true, silent = true })
 
 -- better identing
 vim.keymap.set('n', '>', '>>', { desc = 'Shift text to the right' })
