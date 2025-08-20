@@ -8,6 +8,7 @@ vim.lsp.enable({
   'lua_ls',
   'omnisharp',
   'ruff',
+  'terraform-ls',
   'zls',
 })
 

@@ -21,6 +21,7 @@ return {
         'lua-language-server',
         'omnisharp',
         'ruff',
+        'terraform-ls',
         'zls',
 
         -- formatters (for conform.nvim and general use)
