@@ -11,7 +11,7 @@ vim.keymap.set('i', '<C-c>', '<Esc>', { desc = 'Exit Insert mode', noremap = tru
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit the current window', noremap = true, silent = true })
 
 -- use ctrl+s to write the current to file
-vim.keymap.set({ 'n', 'v', 'x' }, '<C-s>', '<cmd>w<CR><Esc>', { desc = 'Write the current buffer to file', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v', 'x' }, '<C-s>', ':w<CR>', { desc = 'Write the current buffer to file', noremap = true, silent = true })
 
 -- better cusror movement
 vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = 'Move cusror down' })
