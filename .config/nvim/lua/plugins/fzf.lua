@@ -19,8 +19,8 @@ return {
   },
   config = function()
     require('fzf-lua').setup({
-      -- { 'ivy' }, -- use Telescope's ivy profile
-      { 'fzf-native' }, -- use fzf's native previewing ability
+      { 'ivy' }, -- use Telescope's ivy profile
+      -- { 'fzf-native' }, -- use fzf's native previewing ability
       defaults = {
         prompt = '❯ ',
       },
