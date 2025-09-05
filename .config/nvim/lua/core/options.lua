@@ -5,13 +5,14 @@ vim.g.nerd_fonts = true -- set to `true` if a Nerd Font is installed
 -- Tab / Indentation
 vim.opt.breakindent = true -- enable wrapped lines to be indented to line up the start of the line
 vim.opt.expandtab = true -- use spaces when <Tab> is inserted
-vim.opt.shiftwidth = 4 -- number of spaces to use for (auto)indent step
+vim.opt.shiftwidth = 2 -- number of spaces to use for (auto)indent step
 vim.opt.smartindent = true -- smart autoindenting for C programs
-vim.opt.softtabstop = 4 -- number of columns between two soft tab stops
-vim.opt.tabstop = 4 -- number of spaces that a <Tab> in the buffer counts for
+vim.opt.softtabstop = 2 -- number of columns between two soft tab stops
+vim.opt.tabstop = 2 -- number of spaces that a <Tab> in the buffer counts for
 vim.opt.wrap = false -- disable line wrapping
 
 -- Search
+vim.opt.grepformat = '%f:%l:%c:%m' -- format to recognize for the :grep command
 vim.opt.grepprg = 'rg --vimgrep --smart-case' -- program to use for the `:grep` command
 vim.opt.hlsearch = false -- do not highlight matches on previous search terms
 vim.opt.ignorecase = true -- ignore case in search patterns
@@ -32,6 +33,7 @@ vim.opt.termguicolors = true -- enable 24-bit RGB color
 vim.o.winborder = 'rounded' -- default border style of floating windows
 
 -- File handling
+vim.opt.autoread = true -- read file when changed outside of Neovim
 vim.opt.backup = false -- disable backup file
 vim.opt.swapfile = false -- disable swapfile for a buffer
 vim.opt.undofile = true -- save undo information in a file
@@ -45,7 +47,7 @@ vim.opt.iskeyword:append('-') -- treat words with dahes as a single word
 vim.opt.showmode = false -- if in inser, replace or visual mode, put a message on the last line
 vim.opt.splitbelow = true -- new window from split is below the current one
 vim.opt.splitright = true -- new window is put right of the current one
-vim.opt.timeoutlen = 600 -- time in milliseconds to wait for a mapped sequence to complete
+vim.opt.timeoutlen = 500 -- time in milliseconds to wait for a mapped sequence to complete
 vim.opt.updatetime = 100 -- faster completion
 
 -- use system clipboard as default register

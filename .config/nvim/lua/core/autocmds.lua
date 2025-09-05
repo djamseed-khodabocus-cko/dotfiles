@@ -1,12 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local group = vim.api.nvim_create_augroup('custom', { clear = true })
 
--- check if we need to reload the buffer when it changed
-autocmd({ 'CursorHold', 'FocusGained', 'TermClose', 'TermLeave' }, {
-  group = group,
-  command = 'checktime',
-})
-
 -- disable automatic comment continuation
 autocmd('BufEnter', {
   group = group,
