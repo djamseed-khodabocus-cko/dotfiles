@@ -1,34 +1,43 @@
 #
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 #
+targz() {
+    local archive_name exclude_pattern size cmd zipped_size
 
-local archive_name="${1%/}.tar"
-local exclude_pattern="--exclude=.DS_Store"
-local size cmd
+    if [ $# -lt 1 ]; then
+        echo "Usage: archive <dir_or_files...>"
+        return 1
+    fi
 
-# Create the tar archive
-tar "${archive_name}" "${exclude_pattern}" "${@}" || return 1
+    archive_name="${1%/}.tar"
+    exclude_pattern="--exclude=.DS_Store"
 
-# Determine the size of the tar archive
-size=$(stat -f"%z" "${archive_name}" 2>/dev/null || stat -c"%s" "${archive_name}" 2>/dev/null)
+    # Create the tar archive
+    tar -cf "${archive_name}" ${exclude_pattern} "$@" || return 1
 
-# Choose compression tool based on size and availability
-if ((size < 52428800)) && command -v zopfli 2>/dev/null; then
-    cmd="zopfli"
-elif command -v pigz 2>/dev/null; then
-    cmd="pigz"
-else
-    cmd="gzip"
-fi
+    # Determine the size of the tar archive
+    size=$(stat -f"%z" "${archive_name}" 2>/dev/null || stat -c"%s" "${archive_name}" 2>/dev/null)
 
-# Compress the tar archive
-echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`..."
-"${cmd}" -v "${archive_name}" || return 1
+    # Choose compression tool based on size and availability
+    if ((size < 52428800)) && command -v zopfli >/dev/null 2>&1; then
+        cmd="zopfli"
+    elif command -v pigz >/dev/null 2>&1; then
+        cmd="pigz"
+    else
+        cmd="gzip"
+    fi
 
-# Remove the uncompressed tar archive
-[ -f "${archive_name}" ] && rm "${archive_name}"
+    # Compress the tar archive
+    echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`..."
+    "${cmd}" -v "${archive_name}" || return 1
 
-# Determine the size of the compressed archive
-zipped_size=$(stat -f"%z" "${archive_name}.gz" 2>/dev/null || stat -c"%s" "${archive_name}.gz" 2>/dev/null)
+    # Remove the uncompressed tar archive
+    [ -f "${archive_name}" ] && rm -f "${archive_name}"
 
-echo "${archive_name}.gz ($((zipped_size / 1000)) kB) created successfully."
+    # Determine the size of the compressed archive
+    zipped_size=$(stat -f"%z" "${archive_name}.gz" 2>/dev/null || stat -c"%s" "${archive_name}.gz" 2>/dev/null)
+
+    echo "${archive_name}.gz ($((zipped_size / 1000)) kB) created successfully."
+}
+
+targz "$@"
