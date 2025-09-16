@@ -67,6 +67,7 @@ cask 'raycast'
 cask 'rider'
 cask 'shottr'
 cask 'spotify'
+cask 'vivaldi'
 
 mas 'Amphetamine', id: 937984704
 mas 'Numbers', id: 409203825
