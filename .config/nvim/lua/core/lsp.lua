@@ -21,6 +21,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
     end
 
+    -- LSP keymaps
     map('K', vim.lsp.buf.hover, 'Hover documentation')
     map('gD', vim.lsp.buf.declaration, 'Goto declaration')
     map('gO', vim.lsp.buf.document_symbol, 'Document symbols')
@@ -81,6 +82,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         signs = { text = diagnostic_signs },
       })
     end
+
+    -- diagnostics keymap
+    vim.keymap.set('n', '<leader>d', ':lua vim.diagnostic.setqflist({bufnr=0})<CR>', { desc = 'Show buffer diagnostics in quickfix list', noremap = true, silent = true })
   end,
 })
 
