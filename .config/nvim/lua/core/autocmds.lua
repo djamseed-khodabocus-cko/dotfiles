@@ -45,12 +45,11 @@ autocmd('BufReadPost', {
   end,
 })
 
--- toggle cursorline and relativenumber based on mode
+-- toggle cursorline.
 autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   group = group,
   callback = function()
     vim.opt_local.cursorline = true
-    vim.opt_local.relativenumber = true
   end,
 })
 
@@ -58,10 +57,23 @@ autocmd({ 'FocusLost', 'InsertEnter', 'WinLeave' }, {
   group = group,
   callback = function()
     vim.opt_local.cursorline = false
-    vim.opt_local.relativenumber = false
   end,
 })
 
+-- toggle relativenumber based on mode
+autocmd('InsertLeave', {
+  group = group,
+  callback = function()
+    vim.opt_local.relativenumber = true
+  end,
+})
+
+autocmd('InsertEnter', {
+  group = group,
+  callback = function()
+    vim.opt_local.relativenumber = false
+  end,
+})
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd('FileType', {
   group = group,
