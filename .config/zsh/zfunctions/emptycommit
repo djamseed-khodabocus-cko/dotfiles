@@ -1,0 +1,5 @@
+#
+# Create an empty commit
+#
+
+git commit --allow-empty -m $1
