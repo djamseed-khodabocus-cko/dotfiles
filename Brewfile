@@ -43,7 +43,7 @@ brew 'pyenv'
 brew 'pyenv-virtualenv'
 brew 'ripgrep'
 brew 'sd'
-brew 'tldr'
+brew 'tlrc'
 brew 'tmux'
 brew 'xh'
 brew 'yt-dlp'
@@ -71,4 +71,3 @@ cask 'vivaldi'
 
 mas 'Amphetamine', id: 937984704
 mas 'Numbers', id: 409203825
-mas 'Microsoft Remote Desktop', id: 1295203466
