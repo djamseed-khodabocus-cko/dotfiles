@@ -5,11 +5,11 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
   },
+  branch = 'master',
   build = ':TSUpdate',
-  event = { 'BufReadPost', 'BufNewFile' },
-  main = 'nvim-treesitter.configs', -- sets main module to use for opts
+  lazy = false,
   opts = {
     auto_install = true,
     ensure_installed = {
