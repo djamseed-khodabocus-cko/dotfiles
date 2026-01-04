@@ -11,7 +11,12 @@ return {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
   },
   config = function()
-    require('mason').setup()
+    require('mason').setup({
+      registries = {
+        'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry',
+      },
+    })
     require('mason-tool-installer').setup({
       ensure_installed = {
         -- LSP servers
@@ -19,7 +24,7 @@ return {
         'gopls',
         'json-lsp',
         'lua-language-server',
-        'omnisharp',
+        'roslyn',
         'ruff',
         'terraform-ls',
         'zls',

@@ -6,7 +6,7 @@ vim.lsp.enable({
   'gopls',
   'jsonls',
   'lua_ls',
-  'omnisharp',
+  'roslyn',
   'ruff',
   'terraform_ls',
   'yaml_ls',
