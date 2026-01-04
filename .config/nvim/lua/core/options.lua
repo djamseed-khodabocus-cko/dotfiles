@@ -20,7 +20,8 @@ vim.opt.inccommand = 'split' -- preview substitution live
 vim.opt.smartcase = true -- enable case-insensitive search
 
 -- Appearance
-vim.opt.completeopt = 'menu,menuone,noselect' -- Better completion experience
+vim.opt.completeopt = 'menu,menuone,noselect' -- better completion experience
+vim.opt.conceallevel = 2 -- hide * markup for bold and italic, but not markers with substitutions
 vim.opt.fillchars = { eob = ' ' } -- remove the `~` character at the end of a buffer
 vim.opt.guicursor = 'n-v-c-sm:block-blinkwait175-blinkoff150-blinkon175' -- cursor styling for each mode
 vim.opt.number = true -- show absolute line numbers
@@ -44,6 +45,8 @@ vim.opt.writebackup = false -- disable backup when overwriting a file
 vim.opt.confirm = true -- dialog that asks to confirm saving changes before exiting modified buffer
 vim.opt.isfname:append('@-@') -- include `@` in file names and path names
 vim.opt.iskeyword:append('-') -- treat words with dahes as a single word
+vim.opt.maxmempattern = 20000 -- max amount of memory (KB) to use for pattern matching
+vim.opt.redrawtime = 10000 -- time in ms for redrawing the display
 vim.opt.showmode = false -- if in inser, replace or visual mode, put a message on the last line
 vim.opt.splitbelow = true -- new window from split is below the current one
 vim.opt.splitright = true -- new window is put right of the current one
