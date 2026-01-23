@@ -5,7 +5,6 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
-    { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
   },
   branch = 'master',
   build = ':TSUpdate',
@@ -29,6 +28,7 @@ return {
       'python',
       'query',
       'rust',
+      'terraform',
       'textproto',
       'toml',
       'typescript',
