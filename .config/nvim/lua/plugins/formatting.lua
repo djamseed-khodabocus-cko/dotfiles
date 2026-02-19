@@ -18,7 +18,6 @@ return {
   opts = {
     default_format_opts = { lsp_format = 'fallback' },
     formatters_by_ft = {
-      cs = { 'csharpier' },
       go = { 'goimports', 'gofumpt' },
       json = { 'prettier' },
       lua = { 'stylua' },
@@ -37,20 +36,6 @@ return {
       shfmt = {
         preprend_args = { '-i', '2' },
       },
-      csharpier = function()
-        local useDotnet = not vim.fn.executable('csharpier')
-        local command = useDotnet and 'dotnet csharpier' or 'csharpier'
-        local version_out = vim.fn.system(command .. ' --version')
-        local major_version = tonumber((version_out or ''):match('^(%d+)')) or 0
-        local is_new = major_version >= 1
-        local args = is_new and { 'format', '$FILENAME' } or { '--write-stdout' }
-        return {
-          command = command,
-          args = args,
-          stdin = not is_new,
-          require_cwd = false,
-        }
-      end,
     },
     notify_on_error = false,
   },
