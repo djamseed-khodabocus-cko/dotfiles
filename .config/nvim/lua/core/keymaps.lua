@@ -48,6 +48,10 @@ vim.keymap.set('v', '>', '>gv', { desc = 'Shift text to the right' })
 vim.keymap.set('v', '<', '<gv', { desc = 'Shift text to the left' })
 
 -- clipboard behaviour
-vim.keymap.set('x', '<leader>v', [["_dP]], { desc = 'Keep the last yanked when pasting', noremap = true })
-vim.keymap.set('v', 'p', '"_dP', { desc = 'Prevent pasting from replacing the clipboard in Visual mode' })
-vim.keymap.set('n', 'x', '"_x', { desc = 'Prevent deleted characters from copying to clipboard' })
+-- prevent delete/cut operations from overwriting the clipboard
+vim.keymap.set('n', 'd', '"_d', { desc = 'Delete without yanking' })
+vim.keymap.set('n', 'x', '"_x', { desc = 'Delete character without yanking' })
+
+-- in visual mode, keep paste from overwriting clipboard
+vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste without overwriting clipboard' })
+vim.keymap.set('v', 'P', '"_dP', { desc = 'Paste without overwriting clipboard' })

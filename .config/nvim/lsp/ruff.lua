@@ -2,10 +2,10 @@
 --- https://github.com/astral-sh/ruff
 
 return {
-  cmd = { 'ruff', 'server' },
-  filetypes = { 'python' },
-  root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
-  settings = {
-    lineLength = 120,
-  },
+    cmd = { 'ruff', 'server' },
+    filetypes = { 'python' },
+    root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+    settings = {
+        lineLength = 120,
+    },
 }
