@@ -1,6 +1,6 @@
 -- Set lualine as statusline
 -- https://github.com/nvim-lualine/lualine.nvim
--- Added from https://github.com/hendrikmi/dotfiles/blob/main/nvim/lua/plugins/lualine.lua
+-- Inspired by https://github.com/hendrikmi/dotfiles/blob/main/nvim/lua/plugins/lualine.lua
 
 return {
     'nvim-lualine/lualine.nvim',

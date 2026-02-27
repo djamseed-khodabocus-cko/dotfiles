@@ -1,5 +1,5 @@
 -- Neovim frontend for opencode
--- https://github.com/sudo-tee/opencode.nvim#-setting-up-opencode
+-- https://github.com/sudo-tee/opencode.nvim
 
 return {
     'sudo-tee/opencode.nvim',

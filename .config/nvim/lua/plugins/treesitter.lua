@@ -6,12 +6,10 @@ return {
     dependencies = {
         { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
     },
-    branch = 'master',
-    build = ':TSUpdate',
     lazy = false,
-    opts = {
-        auto_install = true,
-        ensure_installed = {
+    build = ':TSUpdate',
+    config = function()
+        local fileTypes = {
             'bash',
             'c',
             'c_sharp',
@@ -28,7 +26,6 @@ return {
             'python',
             'query',
             'rust',
-            'terraform',
             'textproto',
             'toml',
             'typescript',
@@ -37,9 +34,13 @@ return {
             'vimdoc',
             'yaml',
             'zig',
-        },
-        sync_install = false,
-        highlight = { enable = true, additional_vim_regex_highlighting = false },
-        indent = { enable = true },
-    },
+        }
+
+        require('nvim-treesitter').install(fileTypes)
+
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = fileTypes,
+            callback = function() vim.treesitter.start() end,
+        })
+    end,
 }
