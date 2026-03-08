@@ -18,3 +18,8 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # Disable global Zsh configuration
 unsetopt GLOBAL_RCS
+
+for file in $ZDOTDIR/env.d/*.zsh(N); do
+    source $file
+done
+unset file

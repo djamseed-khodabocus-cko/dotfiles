@@ -1,6 +1,9 @@
 # Ensure path arrays have unique values
 typeset -U path cdpath fpath manpath
 
+# Setup homebrew's environment variables
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Set the list of directories that zsh searches for commands
 path=(
     /Applications/Docker.app/Contents/Resources/bin(N)

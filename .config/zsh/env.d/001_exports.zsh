@@ -1,6 +1,3 @@
-# Make `nvim` the default editor
-(($+commands[nvim])) && export EDITOR=nvim VISUAL=nvim || export EDITOR=vim VISUAL=vim
-
 # Better experience for `less`
 #    -F: Exit if contents fit on one screen.
 #    -Q: Quiet mode .
@@ -31,13 +28,6 @@ fi
 # https://stackoverflow.com/a/42265848/96656
 export GPG_TTY=$TTY
 
-# Enable color support for BSD `ls`
-export CLICOLOR=1
-export LSCOLORS=GxFxCxDxCxegedabagaced
-
-# Enable color support for GNU `ls`
-(($+commands[gls])) && (($+commands[vivid])) && export LS_COLORS=$(vivid generate rose-pine-moon)
-
 # Reconfigure applications to use the XDG Base Directory structure
 export CARGO_HOME=$XDG_DATA_HOME/cargo
 export DOTNET_CLI_HOME=$XDG_DATA_HOME/dotnet
@@ -54,12 +44,12 @@ export PYENV_ROOT=$XDG_DATA_HOME/pyenv
 export RUSTUP_HOME=$XDG_DATA_HOME/rustup
 export TLRC_CONFIG=$XDG_CONFIG_HOME/tldr/config.toml
 
+# Go environment variables
+export GOBIN=$GOPATH/bin
+
 # .NET environment variables
 export DOTNET_ROOT=/usr/local/share/dotnet
 
 # Java environment variables
 export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/openjdk@17/include"
 export JAVA_HONE=$(/usr/libexec/java_home -v 17)
-
-# Go environment variables
-export GOBIN=$GOPATH/bin
