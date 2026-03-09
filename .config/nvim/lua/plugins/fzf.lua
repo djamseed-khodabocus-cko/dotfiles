@@ -12,6 +12,7 @@ return {
         { '<leader>fg', ':FzfLua git_files<CR>', desc = 'Find git files', noremap = true, silent = true },
         { '<leader>fh', ':FzfLua helptags<CR>', desc = 'Search help', noremap = true, silent = true },
         { '<leader>fk', ':FzfLua keymaps<CR>', desc = 'Find keymappings', noremap = true, silent = true },
+        { '<leader>fq', ':FzfLua lgrep_quickfix<CR>', desc = 'Search in the quickfix list', noremap = true, silent = true },
         { '<leader>fr', ':FzfLua oldfiles<CR>', desc = 'Find recently opened files', noremap = true, silent = true },
         { '<leader>fs', ':FzfLua live_grep_native<CR>', desc = 'Search current project', noremap = true, silent = true },
         { '<leader>fw', ':FzfLua grep_cword<CR>', desc = 'Search word under cursor', noremap = true, silent = true },

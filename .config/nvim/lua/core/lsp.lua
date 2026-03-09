@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
-        local fzf = require('fzf-lua')
+        -- local fzf = require('fzf-lua')
 
         -- LSP keymaps
         map('K', vim.lsp.buf.hover, 'Hover documentation')
@@ -45,9 +45,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         map('gd', vim.lsp.buf.definition, 'Goto definition')
         map('gs', vim.lsp.buf.signature_help, 'Signature help')
         map('gra', vim.lsp.buf.code_action, 'Code actions', { 'n', 'x' })
-        map('gri', function() fzf.lsp_implementations() end, 'Goto implementation')
+        -- map('gri', function() fzf.lsp_implementations() end, 'Goto implementation')
+        map('gri', vim.lsp.buf.implementation, 'Goto implementation')
         map('grn', vim.lsp.buf.rename, 'Rename')
-        map('grr', function() fzf.lsp_references() end, 'Goto references')
+        -- map('grr', function() fzf.lsp_references() end, 'Goto references')
+        map('grr', vim.lsp.buf.references, 'Goto references')
         map('grt', vim.lsp.buf.type_definition, 'Goto type definitions')
 
         -- highlight references of the word under the cursor
