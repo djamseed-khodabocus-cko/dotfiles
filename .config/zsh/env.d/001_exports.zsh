@@ -1,3 +1,8 @@
+# Locale
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
 # Better experience for `less`
 #    -F: Exit if contents fit on one screen.
 #    -Q: Quiet mode .
