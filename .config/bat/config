@@ -1,0 +1,5 @@
+# Set theme to Dracula (more themes with bat --list-themes)
+--theme="Dracula"
+
+# Use italic text on the terminal (not supported on all terminals)
+--italic-text=always
