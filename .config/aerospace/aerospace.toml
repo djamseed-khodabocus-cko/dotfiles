@@ -166,6 +166,9 @@ alt-shift-l = ['join-with right', 'mode main']
 
 # Event listeners
 
+# Get Bundle ID of application using:
+# osascript -e 'id of app "AppName"'
+
 ## Browsers
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
@@ -191,18 +194,13 @@ if.app-id = 'com.jetbrains.rider'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
-if.app-id = 'com.DanPristupov.Fork'
+if.app-id = 'com.todesktop.230313mzl4w4u92'
 run = 'move-node-to-workspace 3'
 
 ## Chat apps
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace 4'
-
-## Floaters
-[[on-window-detected]]
-if.app-id = 'com.1password.1password'
-run = 'layout floating'
 
 # Music apps
 [[on-window-detected]]
@@ -212,3 +210,12 @@ run = 'move-node-to-workspace 5'
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
 run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'com.DanPristupov.Fork'
+run = 'move-node-to-workspace 6'
+
+## Floaters
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'layout floating'
