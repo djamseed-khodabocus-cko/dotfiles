@@ -1,0 +1,19 @@
+[settings]
+
+# automatically install missing tools
+auto_install = true
+
+# ensure mise tool paths/shims are placed ahead of system PATH
+activate_aggressive = true
+
+# use verbose output
+verbose = false
+
+[tools]
+dotnet = ['10', '9', '8']
+go = 'latest'
+java = 'openjdk-17'
+node = ['latest', 'lts']
+python = 'latest'
+rust = 'latest'
+zig = 'latest'

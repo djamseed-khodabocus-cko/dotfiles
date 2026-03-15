@@ -39,13 +39,14 @@ export DOTNET_CLI_HOME=$XDG_DATA_HOME/dotnet
 export GOPATH=$XDG_DATA_HOME/go
 export GRADLE_USER_HOME=$XDG_DATA_HOME/gradle
 export LESSHISTFILE=$XDG_STATE_HOME/less/history
+export MISE_CACHE_DIR=$XDG_CACHE_HOME/mise
+export MISE_CONFIG_DIR=$XDG_CONFIG_HOME/mise
+export MISE_DATA_DIR=$XDG_DATA_HOME/mise
 export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
 export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
 export NPM_CONFIG_INIT_MODULE=$XDG_CONFIG_HOME/npm/config/npm-init.js
-export NUGET_PACKAGES=$XDG_DATA_HOME/Nuget/packages
 export NUGET_HTTP_CACHE_PATH=$XDG_CACHE_HOME/NuGet/http-cache
-export OMNISHARPHOME=$XDG_CONFIG_HOME/omnisharp
-export PYENV_ROOT=$XDG_DATA_HOME/pyenv
+export NUGET_PACKAGES=$XDG_DATA_HOME/Nuget/packages
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/config
 export RUSTUP_HOME=$XDG_DATA_HOME/rustup
 export TLRC_CONFIG=$XDG_CONFIG_HOME/tldr/config.toml
@@ -53,9 +54,6 @@ export TLRC_CONFIG=$XDG_CONFIG_HOME/tldr/config.toml
 # Go environment variables
 export GOBIN=$GOPATH/bin
 
-# .NET environment variables
-export DOTNET_ROOT=/usr/local/share/dotnet
-
 # Java environment variables
-export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/openjdk@17/include"
+# export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/openjdk@17/include"
 export JAVA_HONE=$(/usr/libexec/java_home -v 17)
