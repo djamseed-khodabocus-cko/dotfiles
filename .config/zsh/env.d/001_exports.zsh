@@ -55,5 +55,5 @@ export TLRC_CONFIG=$XDG_CONFIG_HOME/tldr/config.toml
 export GOBIN=$GOPATH/bin
 
 # Java environment variables
-export CPPFLAGS=$XDG_DATA_HOME/mise/installs/java/openjdk-17/include
-export JAVA_HONE=$(/usr/libexec/java_home -v 17)
+export JAVA_HOME=$XDG_DATA_HOME/mise/installs/java/openjdk-17.0.2
+export CPPFLAGS="-I$JAVA_HOME/include"
