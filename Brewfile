@@ -49,6 +49,7 @@ brew 'zsh-fast-syntax-highlighting'
 
 cask '1password'
 cask 'appcleaner'
+cask 'claude'
 cask 'docker'
 cask 'font-fira-code-nerd-font'
 cask 'fork'
