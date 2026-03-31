@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
 
         -- log only errors
-        vim.lsp.set_log_level('error')
+        vim.lsp.log.set_level('error')
 
         -- change diagnostic symbols in the sign column (gutter)
         if vim.g.nerd_fonts then
@@ -128,7 +128,7 @@ vim.api.nvim_create_user_command('LspRestart', function()
     local bufnr = vim.api.nvim_get_current_buf()
     local clients = vim.lsp.get_clients({ bufnr = bufnr })
     for _, client in ipairs(clients) do
-        vim.lsp.stop_client(client.id)
+        vim.lsp.client.stop(client, nil)
     end
     vim.defer_fn(function() vim.cmd('edit') end, 100)
 end, { desc = 'Restart LSP clients for the current buffer' })
