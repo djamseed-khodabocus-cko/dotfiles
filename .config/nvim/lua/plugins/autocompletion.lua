@@ -5,7 +5,7 @@ return {
     'saghen/blink.cmp',
     dependencies = {
         'rafamadriz/friendly-snippets',
-        'giuxtaposition/blink-cmp-copilot',
+        'fang2hou/blink-copilot',
     },
     event = 'LspAttach',
     version = '*',
@@ -44,6 +44,9 @@ return {
                 scrolloff = 1,
             },
         },
+        fuzzy = {
+            implementation = 'prefer_rust',
+        },
         keymap = {
             -- https://cmp.saghen.dev/configuration/keymap.html#default
             preset = 'default',
@@ -56,7 +59,7 @@ return {
             providers = {
                 copilot = {
                     name = 'copilot',
-                    module = 'blink-cmp-copilot',
+                    module = 'blink-copilot',
                     score_offset = 100,
                     async = true,
                 },

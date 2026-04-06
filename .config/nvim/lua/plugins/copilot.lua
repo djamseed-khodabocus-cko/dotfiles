@@ -5,10 +5,12 @@ return {
     'zbirenbaum/copilot.lua',
     event = 'LspAttach',
     cmd = 'Copilot',
-    config = function()
-        require('copilot').setup({
-            panel = { enabled = false },
-            suggestion = { enabled = false }, -- suggestions wil be handled by blink cmp
-        })
-    end,
+    opts = {
+        suggestion = { enabled = false }, -- suggestions will be handled by blink
+        panel = { enabled = false },
+        filetypes = {
+            markdown = true,
+            help = true,
+        },
+    },
 }
