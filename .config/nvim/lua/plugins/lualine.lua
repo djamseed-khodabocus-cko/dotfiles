@@ -50,7 +50,7 @@ return {
                 -- https://www.nerdfonts.com/cheat-sheet
                 --        
                 section_separators = { left = '', right = '' },
-                theme = 'rose-pine',
+                theme = 'oxocarbon',
             },
             sections = {
                 lualine_a = { mode },

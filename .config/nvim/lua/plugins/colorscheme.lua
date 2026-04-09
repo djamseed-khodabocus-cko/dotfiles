@@ -1,21 +1,8 @@
--- Soho vibes for Neovim
--- https://github.com/rose-pine/neovim
+-- Dark theme inspired by IBM carbon
+-- https://github.com/nyoom-engineering/oxocarbon.nvim
 
 return {
-    'rose-pine/neovim',
-    name = 'rose-pine',
+    'nyoom-engineering/oxocarbon.nvim',
     lazy = false,
-    config = function()
-        require('rose-pine').setup({
-            variant = 'moon',
-            styles = {
-                italic = false,
-                transparency = true,
-            },
-            highlight_groups = {
-                Visual = { fg = 'gold', bg = 'text', blend = 10, inherit = false },
-            },
-        })
-        vim.cmd('colorscheme rose-pine')
-    end,
+    config = function() vim.cmd('colorscheme oxocarbon') end,
 }

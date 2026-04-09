@@ -7,7 +7,7 @@ This repository hosts my personal [Neovim](https://neovim.io) configuration that
 ## Features
 
 - Plugin manager: [lazy](https://github.com/folke/lazy.nvim)
-- Theme: [Rose Pine](https://github.com/rose-pine/neovim)
+  -Theme: [Oxocarbon](https://github.com/nyoom-engineering/oxocarbon.nvim)
 - Fuzzy finder: [fzf-lua](https://github.com/ibhagwan/fzf-lua)
 - File tree: [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim)
 - Collection of QoL plugins: [snacks](https://github.com/folke/snacks.nvim)
