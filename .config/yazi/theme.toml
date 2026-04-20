@@ -1,0 +1,227 @@
+# Oxocarbon theme for Yazi
+# Based on the IBM Carbon / Oxocarbon color palette
+# https://github.com/nyoom-engineering/oxocarbon.nvim
+#
+# Place this file at: ~/.config/yazi/theme.toml
+
+# ─────────────────────────────────────────────
+# Oxocarbon Palette Reference
+# ─────────────────────────────────────────────
+# base00  #161616  background
+# base01  #262626  surface / slightly raised
+# base02  #393939  overlay / selection
+# base03  #525252  muted / comments
+# base04  #dde1e7  subtle foreground
+# base05  #f2f4f8  foreground
+# base06  #ffffff  bright foreground
+# base07  #08bdba  teal / cyan
+# base08  #3ddbd9  bright teal
+# base09  #78a9ff  blue (links, keywords)
+# base0A  #ee5396  pink / red
+# base0B  #25be6a  green
+# base0C  #be95ff  purple / lavender
+# base0D  #33b1ff  sky blue
+# base0E  #ff7eb6  light pink
+# base0F  #ff6e24  orange / warning
+
+[app]
+overall = { bg = "#161616" }
+
+# ─────────────────────────────────────────────
+# Manager
+# ─────────────────────────────────────────────
+[mgr]
+cwd            = { fg = "#78a9ff", bold = true }
+
+find_keyword   = { fg = "#ff7eb6", bold = true, italic = true }
+find_position  = { fg = "#be95ff", italic = true }
+
+symlink_target = { fg = "#08bdba", italic = true }
+
+marker_copied   = { fg = "#25be6a", bg = "#25be6a" }
+marker_cut      = { fg = "#ee5396", bg = "#ee5396" }
+marker_marked   = { fg = "#be95ff", bg = "#be95ff" }
+marker_selected = { fg = "#78a9ff", bg = "#78a9ff" }
+
+count_copied   = { fg = "#161616", bg = "#25be6a", bold = true }
+count_cut      = { fg = "#161616", bg = "#ee5396", bold = true }
+count_selected = { fg = "#161616", bg = "#78a9ff", bold = true }
+
+border_symbol = "│"
+border_style  = { fg = "#393939" }
+
+# ─────────────────────────────────────────────
+# Indicator (scrollbar dots)
+# ─────────────────────────────────────────────
+[indicator]
+parent  = { fg = "#525252" }
+current = { fg = "#78a9ff" }
+preview = { fg = "#525252" }
+padding = { open = " ", close = " " }
+
+# ─────────────────────────────────────────────
+# Tabs
+# ─────────────────────────────────────────────
+[tabs]
+active   = { fg = "#161616", bg = "#78a9ff", bold = true }
+inactive = { fg = "#dde1e7", bg = "#262626" }
+sep_inner = { open = " ", close = " " }
+sep_outer = { open = "", close = "" }
+
+# ─────────────────────────────────────────────
+# Mode indicator
+# ─────────────────────────────────────────────
+[mode]
+normal_main = { fg = "#161616", bg = "#78a9ff", bold = true }
+normal_alt  = { fg = "#78a9ff", bg = "#262626" }
+select_main = { fg = "#161616", bg = "#25be6a", bold = true }
+select_alt  = { fg = "#25be6a", bg = "#262626" }
+unset_main  = { fg = "#161616", bg = "#be95ff", bold = true }
+unset_alt   = { fg = "#be95ff", bg = "#262626" }
+
+# ─────────────────────────────────────────────
+# Status bar
+# ─────────────────────────────────────────────
+[status]
+overall  = { fg = "#dde1e7", bg = "#262626" }
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+
+perm_type  = { fg = "#78a9ff" }
+perm_read  = { fg = "#25be6a" }
+perm_write = { fg = "#ee5396" }
+perm_exec  = { fg = "#ff7eb6" }
+perm_sep   = { fg = "#525252" }
+
+progress_label  = { fg = "#f2f4f8", bold = true }
+progress_normal = { fg = "#78a9ff", bg = "#262626" }
+progress_error  = { fg = "#ee5396", bg = "#262626" }
+
+# ─────────────────────────────────────────────
+# Which-key popup
+# ─────────────────────────────────────────────
+[which]
+cols            = 3
+mask            = { bg = "#161616" }
+cand            = { fg = "#78a9ff", bold = true }
+rest            = { fg = "#525252" }
+desc            = { fg = "#dde1e7" }
+separator       = "  "
+separator_style = { fg = "#393939" }
+
+# ─────────────────────────────────────────────
+# Confirm dialog
+# ─────────────────────────────────────────────
+[confirm]
+border   = { fg = "#393939" }
+title    = { fg = "#78a9ff", bold = true }
+body     = { fg = "#dde1e7" }
+list     = { fg = "#be95ff" }
+btn_yes  = { fg = "#161616", bg = "#25be6a", bold = true }
+btn_no   = { fg = "#161616", bg = "#ee5396", bold = true }
+btn_labels = ["  Yes  ", "  No  "]
+
+# ─────────────────────────────────────────────
+# Spot (file metadata table)
+# ─────────────────────────────────────────────
+[spot]
+border   = { fg = "#393939" }
+title    = { fg = "#78a9ff", bold = true }
+tbl_col  = { fg = "#be95ff", bold = true, underline = true }
+tbl_cell = { fg = "#f2f4f8", reversed = true }
+
+# ─────────────────────────────────────────────
+# Notifications
+# ─────────────────────────────────────────────
+[notify]
+title_info  = { fg = "#08bdba", bold = true }
+title_warn  = { fg = "#ff6e24", bold = true }
+title_error = { fg = "#ee5396", bold = true }
+
+# ─────────────────────────────────────────────
+# Pick dialog
+# ─────────────────────────────────────────────
+[pick]
+border   = { fg = "#393939" }
+active   = { fg = "#161616", bg = "#78a9ff", bold = true }
+inactive = { fg = "#dde1e7" }
+
+# ─────────────────────────────────────────────
+# Input dialog
+# ─────────────────────────────────────────────
+[input]
+border   = { fg = "#393939" }
+title    = { fg = "#78a9ff", bold = true }
+value    = { fg = "#f2f4f8" }
+selected = { fg = "#161616", bg = "#78a9ff" }
+
+# ─────────────────────────────────────────────
+# Completion menu
+# ─────────────────────────────────────────────
+[cmp]
+border       = { fg = "#393939" }
+active       = { fg = "#161616", bg = "#78a9ff", bold = true }
+inactive     = { fg = "#dde1e7" }
+icon_file    = ""
+icon_folder  = ""
+icon_command = ""
+
+# ─────────────────────────────────────────────
+# Tasks panel
+# ─────────────────────────────────────────────
+[tasks]
+border  = { fg = "#393939" }
+title   = { fg = "#78a9ff", bold = true }
+hovered = { fg = "#161616", bg = "#78a9ff", bold = true }
+
+# ─────────────────────────────────────────────
+# Help overlay
+# ─────────────────────────────────────────────
+[help]
+on      = { fg = "#ff7eb6", bold = true }
+run     = { fg = "#be95ff" }
+desc    = { fg = "#dde1e7" }
+hovered = { fg = "#161616", bg = "#78a9ff", bold = true }
+footer  = { fg = "#525252", bg = "#262626" }
+
+icon_info  = ""
+icon_warn  = ""
+icon_error = ""
+
+# ─────────────────────────────────────────────
+# File type colors
+# ─────────────────────────────────────────────
+[filetype]
+rules = [
+  # Images
+  { mime = "image/*", fg = "#ff7eb6" },
+  # Video
+  { mime = "video/*", fg = "#be95ff" },
+  # Audio
+  { mime = "audio/*", fg = "#be95ff" },
+  # Archives / compressed
+  { mime = "application/zip",              fg = "#ff6e24" },
+  { mime = "application/gzip",             fg = "#ff6e24" },
+  { mime = "application/x-tar",            fg = "#ff6e24" },
+  { mime = "application/x-bzip2",          fg = "#ff6e24" },
+  { mime = "application/x-7z-compressed",  fg = "#ff6e24" },
+  { mime = "application/x-rar",            fg = "#ff6e24" },
+  { mime = "application/zstd",             fg = "#ff6e24" },
+  # Documents
+  { mime = "application/pdf",              fg = "#ee5396" },
+  { mime = "application/msword",           fg = "#78a9ff" },
+  { mime = "application/vnd.openxmlformats-officedocument.*", fg = "#78a9ff" },
+  # Source code — plain text gets the default fg, handled by icons mostly
+  { mime = "text/x-shellscript",           fg = "#25be6a" },
+  { mime = "text/*",                       fg = "#dde1e7" },
+  # Empty files
+  { mime = "inode/empty",                  fg = "#525252" },
+  # Orphan symlinks
+  { url = "*", is = "orphan",              fg = "#ee5396", underline = true },
+  # Executables
+  { url = "*", is = "exec",               fg = "#25be6a", bold = true },
+  # Symlinks
+  { url = "*", is = "link",               fg = "#08bdba" },
+  # Directories
+  { url = "*/",                            fg = "#78a9ff", bold = true },
+]
