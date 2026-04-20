@@ -50,8 +50,8 @@ vim.opt.redrawtime = 10000 -- time in ms for redrawing the display
 vim.opt.showmode = false -- if in inser, replace or visual mode, put a message on the last line
 vim.opt.splitbelow = true -- new window from split is below the current one
 vim.opt.splitright = true -- new window is put right of the current one
-vim.opt.synmaxcol = 300 -- max column to search for syntax items
-vim.opt.timeoutlen = 500 -- time in milliseconds to wait for a mapped sequence to complete
+vim.opt.synmaxcol = 180 -- max column to search for syntax items
+vim.opt.timeoutlen = 300 -- time in milliseconds to wait for a mapped sequence to complete
 vim.opt.updatetime = 100 -- faster completion
 
 -- Folding

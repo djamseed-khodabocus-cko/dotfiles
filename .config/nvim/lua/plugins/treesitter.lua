@@ -6,7 +6,8 @@ return {
     dependencies = {
         { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
     },
-    lazy = false,
+    lazy = true,
+    event = 'VeryLazy',
     build = ':TSUpdate',
     config = function()
         local parsers = {
