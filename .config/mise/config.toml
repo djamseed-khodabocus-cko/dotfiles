@@ -10,7 +10,7 @@ activate_aggressive = true
 verbose = false
 
 [tools]
-dotnet = ['10', '9', '8']
+dotnet = ['10', '9', '8', '6']
 go = 'latest'
 java = 'openjdk-17'
 node = ['latest', 'lts']
