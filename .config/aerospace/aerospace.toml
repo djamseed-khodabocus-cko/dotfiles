@@ -174,27 +174,18 @@ alt-shift-l = ['join-with right', 'mode main']
 if.app-id = 'com.google.Chrome'
 run = 'move-node-to-workspace 1'
 
-## Note apps
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = 'move-node-to-workspace 1'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.Notes'
-run = 'move-node-to-workspace 1'
-
 ## Terminal
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 run = 'move-node-to-workspace 2'
 
-## Dev tools
+## Note apps
 [[on-window-detected]]
-if.app-id = 'com.jetbrains.rider'
+if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
-if.app-id = 'com.todesktop.230313mzl4w4u92'
+if.app-id = 'com.apple.Notes'
 run = 'move-node-to-workspace 3'
 
 ## Chat apps
