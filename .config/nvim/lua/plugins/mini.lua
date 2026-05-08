@@ -30,5 +30,23 @@ return {
     --     replace surrounding with sr.
     --     find surrounding with sf or sF (move cursor right or left).
     --     highlight surrounding with sh.
-    { 'echasnovski/mini.surround', version = '*', event = { 'BufReadPost', 'BufNewFile' }, opts = {} },
+    {
+        'echasnovski/mini.surround',
+        version = '*',
+        event = { 'BufReadPost', 'BufNewFile' },
+        opts = {
+            mappings = {
+                add = 'gza', -- Add surrounding (Normal and Visual)
+                delete = 'gzd', -- Delete surrounding
+                find = 'gzf', -- Find surrounding (right)
+                find_left = 'gzF', -- Find surrounding (left)
+                highlight = 'gzh', -- Highlight surrounding
+                replace = 'gzr', -- Replace surrounding
+                update_n_lines = 'gzn', -- Update n_lines
+
+                -- If you prefer using 's' in visual mode still,
+                -- you can leave 'suffix_last' empty or map it specifically.
+            },
+        },
+    },
 }
