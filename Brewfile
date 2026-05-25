@@ -1,5 +1,7 @@
 cask_args appdir: '/Applications'
 
+tap ojuschugh1/sqz
+
 brew 'awscli'
 brew 'awscli-local'
 brew 'bash'
@@ -36,6 +38,7 @@ brew 'protobuf'
 brew 'ripgrep'
 brew 'sd'
 brew 'sesh'
+brew 'sqz'
 brew 'tlrc'
 brew 'tmux'
 brew 'uv'
