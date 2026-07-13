@@ -20,6 +20,11 @@ path = "~/.dotfiles/.config/nvim"
 startup_command = "nvim ."
 preview_command = "eza -ABghHl --icons --group-directories-first {}"
 
+[[session]]
+name = "demos"
+path = "~/code/demos"
+preview_command = "eza -ABghHl --icons --group-directories-first {}"
+
 [[window]]
 name = "git"
 startup_script = "lazygit"
