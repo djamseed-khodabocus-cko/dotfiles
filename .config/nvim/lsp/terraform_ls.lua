@@ -2,7 +2,7 @@
 --- https://github.com/hashicorp/terraform-ls
 return {
     cmd = { 'terraform-ls', 'serve' },
-    filetypes = { 'tf', 'tfvars' },
+    filetypes = { 'terraform', 'terraform-vars' },
     root_markers = { '.terraform', '.git', 'iac' },
     settings = {
         terraform = {
