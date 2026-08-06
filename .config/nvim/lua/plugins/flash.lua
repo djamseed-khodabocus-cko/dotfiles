@@ -6,6 +6,11 @@ return {
     event = 'VeryLazy',
     vscode = true,
     opts = {
+        label = {
+            -- don't show jump labels until the pattern is long enough that
+            -- typing the next character can't be swallowed as a label
+            min_pattern_length = 3,
+        },
         modes = {
             search = {
                 enabled = true,
@@ -18,6 +23,5 @@ return {
     keys = {
         { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
         { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
-        { '<c-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
     },
 }
