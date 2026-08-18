@@ -10,6 +10,8 @@ path=(
     $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin(N)
     $HOMEBREW_PREFIX/opt/openjdk@17/bin(N)
     $DOTNET_CLI_HOME/.dotnet/tools(N)
+    $XDG_DATA_HOME/bin(N)
+    $XDG_CONFIG_HOME/emacs/bin(N)
     $path
 )
 
