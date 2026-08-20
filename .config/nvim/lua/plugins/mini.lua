@@ -1,52 +1,38 @@
--- Improve Neovim experience
+-- Improve Neovim experience with minimal effort
 -- https://github.com/nvim-mini/mini.nvim
 
-return {
-    -- extend and create a/i textobjects
-    {
-        'echasnovski/mini.ai',
-        event = { 'BufReadPost', 'BufNewFile' },
-        config = function()
-            local ai = require('mini.ai')
+vim.pack.add({
+    { src = 'https://github.com/nvim-mini/mini.ai' },
+    { src = 'https://github.com/nvim-mini/mini.icons' },
+    { src = 'https://github.com/nvim-mini/mini.pairs' },
+    { src = 'https://github.com/nvim-mini/mini.surround' },
+})
 
-            ai.setup({
-                n_lines = 500,
-                custom_textobjects = {
-                    -- treesitter-based textobjects for functions, classes, parameters
-                    f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-                    c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
-                    a = ai.gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),
-                },
-            })
-        end,
-    },
-    -- icon provider (glyph or ascii)
-    { 'echasnovski/mini.icons', version = '*', opts = {}, lazy = true },
-    -- add character pairs automatically
-    { 'echasnovski/mini.pairs', version = '*', event = { 'InsertEnter' }, opts = {} },
-    -- add, delete, replace, find, highlight surrounding (brakets, quotes, etc)
-    --     add surrounding with sa (in visual mode or on motion).
-    --     delete surrounding with sd.
-    --     replace surrounding with sr.
-    --     find surrounding with sf or sF (move cursor right or left).
-    --     highlight surrounding with sh.
-    {
-        'echasnovski/mini.surround',
-        version = '*',
-        event = { 'BufReadPost', 'BufNewFile' },
-        opts = {
-            mappings = {
-                add = 'gza', -- Add surrounding (Normal and Visual)
-                delete = 'gzd', -- Delete surrounding
-                find = 'gzf', -- Find surrounding (right)
-                find_left = 'gzF', -- Find surrounding (left)
-                highlight = 'gzh', -- Highlight surrounding
-                replace = 'gzr', -- Replace surrounding
-                update_n_lines = 'gzn', -- Update n_lines
+-- Extend and create a/i textobjects
+local ai = require('mini.ai')
 
-                -- If you prefer using 's' in visual mode still,
-                -- you can leave 'suffix_last' empty or map it specifically.
-            },
-        },
+ai.setup({
+    custom_textobjects = {
+        f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+        c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
     },
-}
+    n_lines = 500,
+})
+
+require('mini.icons').setup()
+MiniIcons.mock_nvim_web_devicons()
+
+-- Add character pairs automatically
+require('mini.pairs').setup()
+
+-- Add, delete, replace, find, highlight surrounding (quotes, brackets, etc...)
+require('mini.surround').setup({
+    mappings = {
+        add = 'sa', -- Add surrounding (e.g., saiw")
+        delete = 'sd', -- Delete surrounding (e.g., sdiw")
+        find = 'sf', -- Find surrounding to the right
+        find_left = 'sF', -- Find surrounding to the left
+        highlight = 'sh', -- Highlight surrounding
+        replace = 'sr', -- Replace surrounding (e.g., sr"' )
+    },
+})

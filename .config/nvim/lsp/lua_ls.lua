@@ -1,5 +1,5 @@
---- Lua language server.
---- https://github.com/luals/lua-language-server
+-- Lua language server.
+-- https://github.com/luals/lua-language-server
 
 return {
     cmd = { 'lua-language-server' },
@@ -16,15 +16,11 @@ return {
     },
     settings = {
         Lua = {
-            completion = {
-                callSnippet = 'Replace',
-            },
+            codeLens = { enable = true },
+            completion = { callSnippet = 'Replace' },
             diagnostics = {
                 disable = { 'missing-fields' },
-                globals = {
-                    'vim',
-                    'Snacks',
-                },
+                globals = { 'vim', 'Snacks' },
             },
             hint = {
                 enable = true,
@@ -34,8 +30,15 @@ return {
                 semicolon = 'Disable',
                 arrayIndex = 'Disable',
             },
+            runtime = { version = 'LuaJIT' },
             workspace = {
-                library = { [vim.fn.expand('$VIMRUNTIME/lua')] = true },
+                -- Only the Nvim runtime and this config. `nvim_get_runtime_file('lua', true)`
+                -- would hand lua_ls every installed plugin's lua/ directory to index.
+                library = {
+                    vim.fs.joinpath(vim.env.VIMRUNTIME, 'lua'),
+                    vim.fs.joinpath(vim.fn.stdpath('config'), 'lua'),
+                },
+                checkThirdParty = false,
             },
         },
     },

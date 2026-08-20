@@ -1,46 +1,45 @@
 -- Package manager for LSP servers, DAP servers, linters and formatters
 -- https://github.com/mason-org/mason.nvim
 
-return {
-    'mason-org/mason.nvim',
-    event = 'BufReadPre',
-    cmd = 'Mason',
-    build = ':MasonUpdate',
-    dependencies = {
-        -- automatically install and upgrade third party tools
-        'WhoIsSethDaniel/mason-tool-installer.nvim',
+vim.pack.add({
+    { src = 'https://github.com/mason-org/mason.nvim' },
+    { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
+})
+
+require('mason').setup({
+    registries = {
+        'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry',
     },
-    config = function()
-        require('mason').setup({
-            registries = {
-                'github:mason-org/mason-registry',
-                'github:Crashdummyy/mason-registry',
-            },
-        })
-        require('mason-tool-installer').setup({
-            ensure_installed = {
-                -- LSP servers
-                'bash-language-server',
-                'gopls',
-                'json-lsp',
-                'lua-language-server',
-                'roslyn',
-                'ruff',
-                'terraform-ls',
-                'zls',
+})
 
-                -- formatters (for conform.nvim and general use)
-                'csharpier',
-                'gofumpt',
-                'goimports',
-                'prettier',
-                'shfmt',
-                'stylua',
+require('mason-tool-installer').setup({
+    ensure_installed = {
+        -- LSP servers
+        'bash-language-server',
+        'buf',
+        'gopls',
+        'json-lsp',
+        'lua-language-server',
+        'roslyn',
+        'ruff',
+        'terraform-ls',
+        'yaml-language-server',
 
-                -- linters and diagnostics
-                'shellcheck',
-            },
-            run_on_start = true,
-        })
-    end,
-}
+        -- Formatters
+        'csharpier',
+        'gofumpt',
+        'goimports',
+        'prettier',
+        'shfmt',
+        'sql-formatter',
+        'stylua',
+
+        -- Debug adapters (registered with nvim-dap in lua/plugins/debug.lua)
+        'delve',
+        'netcoredbg',
+
+        -- Linters and diagnostics
+        'shellcheck',
+    },
+})

@@ -69,7 +69,7 @@ tags
 # Persistent undo
 [._]*.un~
 
-# Lazy.nvim
-lazy-lock.json
-
 # End of https://www.toptal.com/developers/gitignore/api/linux,macos,vim
+
+# vim.pack plugin revisions (regenerated on install/update)
+nvim-pack-lock.json
