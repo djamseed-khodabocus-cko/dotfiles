@@ -43,7 +43,6 @@ conform.setup({
     },
     formatters = {
         csharpier = function() return csharpier_config() end,
-        shfmt = { prepend_args = { '-i', '2' } },
     },
     notify_on_error = false,
 })
