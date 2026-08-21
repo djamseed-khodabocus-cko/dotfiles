@@ -1,205 +1,121 @@
 # nvim
 
-My personal [Neovim](https://neovim.io) configuration for Linux and macOS. Plugins are managed by
-`vim.pack`, Neovim's built-in package manager, so there is no third-party plugin manager and no
-bootstrap step.
+My personal [Neovim](https://neovim.io) configuration for Linux and macOS. No plugin-manager
+dependency — plugins are managed by Neovim's built-in [`vim.pack`](https://neovim.io/doc/user/pack.html).
 
 ![cover](nvim.png)
 
 ## Requirements
 
-- Neovim 0.12 or newer. The config relies on `vim.pack`, `vim.lsp.enable()`, `:restart`, and the
-  bundled `nvim.undotree` plugin, none of which exist in 0.11.
-- `git`, on `$PATH` (used by `vim.pack` to clone and update plugins).
-- A terminal with true-colour support: [Ghostty](https://ghostty.org),
-  [kitty](https://sw.kovidgoyal.net/kitty), [WezTerm](https://wezfurlong.org/wezterm),
-  [Alacritty](https://alacritty.org). Full list in the
-  [termstandard](https://github.com/termstandard/colors#terminal-emulators) repo.
-- A [Nerd Font](https://www.nerdfonts.com) for the icons. Set `vim.g.nerd_fonts = false` in
-  `lua/core/init.lua` to fall back to text.
-- [fd](https://github.com/sharkdp/fd) and [ripgrep](https://github.com/BurntSushi/ripgrep) for
-  `snacks.picker`'s file and grep sources.
-- Optional: `tmux` for pane navigation, `cargo` to build blink.cmp's native fuzzy matcher, and the
-  Go / .NET toolchains for their debug adapters.
+- **Neovim 0.12+** (uses `vim.pack`, `vim.lsp.enable`, the `lsp/` config directory, `:restart`,
+  and the bundled `nvim.undotree`)
+- A true-color terminal — [Ghostty](https://ghostty.org), [kitty](https://sw.kovidgoyal.net/kitty),
+  [WezTerm](https://wezfurlong.org/wezterm), or [Alacritty](https://alacritty.org)
+  ([full list](https://github.com/termstandard/colors#terminal-emulators))
+- A [Nerd Font](https://www.nerdfonts.com) for glyphs — set `vim.g.nerd_fonts = false` in
+  `lua/core/init.lua` to fall back to text
+- [`fd`](https://github.com/sharkdp/fd) and [`rg`](https://github.com/BurntSushi/ripgrep) for the picker
+- `git`, plus `cc`/`gcc` for compiling treesitter parsers
+- Optional: `cargo` (builds blink.cmp's Rust fuzzy matcher), `go`, `dotnet`, `node`, `tmux`
 
 ## Install
 
 This config lives in my [dotfiles](https://github.com/djamseed-khodabocus-cko/dotfiles) repo and is
-symlinked into place by `install.sh` there. To use it on its own:
+symlinked into `~/.config/nvim` by `install.sh`. To use it standalone:
 
 ```sh
 git clone <this-repo> ~/.config/nvim
 nvim
 ```
 
-On the first start `vim.pack` clones every plugin listed in the `vim.pack.add()` calls under
-`lua/plugins/`, then a `PackChanged` autocmd runs the post-install steps (`:TSUpdate` for
-treesitter, `cargo build --release` for blink.cmp). Mason installs the language servers, formatters
-and debug adapters in the background. Restart once it settles.
+On first launch `vim.pack` clones every plugin, mason installs the language servers, formatters and
+debug adapters, and treesitter compiles its parsers. Restart once when it settles.
 
 ## Layout
 
 ```
-init.lua                 vim.loader, experimental message/cmdline UI, entry point
-lua/core/
-  init.lua               disable unused runtime plugins, leader key, load order
-  options.lua            vim.opt settings
-  keymaps.lua            editor keymaps
-  autocmds.lua           yank highlight, cursorline, last-location, q-to-close
-  lsp.lua                LspAttach keymaps, diagnostic config, vim.lsp.enable()
-lua/plugins/
-  init.lua               auto-requires every sibling module, PackChanged build hooks
-  *.lua                  one module per plugin or plugin group
-lsp/<server>.lua         native vim.lsp.config specs, picked up by vim.lsp.enable()
-after/ftplugin/*.lua     per-filetype defaults, overridden by guess-indent when it detects
-nvim-pack-lock.json      plugin revisions, written by vim.pack (gitignored)
+init.lua              entry point; vim.loader and the experimental message/cmdline UI
+lua/core/             options, keymaps, autocmds, LSP + diagnostics
+lua/plugins/          one file per plugin; loaded alphabetically by lua/plugins/init.lua
+lsp/                  per-server configs, picked up by vim.lsp.enable()
+after/ftplugin/       per-filetype overrides
+nvim-pack-lock.json   plugin revisions written by vim.pack (gitignored)
 ```
 
-`lua/plugins/init.lua` walks the `lua/plugins` directory, sorts the results and requires each one,
-so adding a plugin means dropping in a new file. Each module calls `vim.pack.add()` for its
-dependencies and then configures them. `debug.lua` only calls `vim.pack.add()` at startup and
-defers its requires to the first debug keymap.
+Adding a plugin is a new file in `lua/plugins/` that calls `vim.pack.add(...)`; adding a language
+server is a new file in `lsp/` plus its name in the `vim.lsp.enable` list in `lua/core/lsp.lua`, and
+its mason package in `lua/plugins/mason.lua`. Files load in sorted order, so a module that depends
+on another (lualine on the colorscheme, for instance) must sort after it.
 
-## Plugin management
+## What's in it
 
-`vim.pack` replaces lazy.nvim. The commands are:
-
-| Command | Effect |
+| Area | Plugin |
 | --- | --- |
-| `:lua vim.pack.update()` | Fetch updates, show a diff buffer, confirm with `:write` |
-| `:lua vim.pack.update(nil, { force = true })` | Update without the confirmation buffer |
-| `:lua vim.pack.get()` | List installed plugins and their revisions |
-| `:lua vim.pack.del({ 'name' })` | Remove a plugin |
+| Plugin manager | built-in [`vim.pack`](https://neovim.io/doc/user/pack.html) |
+| Theme | [oxocarbon](https://github.com/nyoom-engineering/oxocarbon.nvim) |
+| Picker, explorer, dashboard, notifier | [snacks](https://github.com/folke/snacks.nvim) |
+| Statusline | [lualine](https://github.com/nvim-lualine/lualine.nvim) |
+| Completion & snippets | [blink.cmp](https://github.com/Saghen/blink.cmp) + [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) |
+| AI completion | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) via [blink-cmp-copilot](https://github.com/giuxtaposition/blink-cmp-copilot) |
+| Syntax & folds | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (+ [context](https://github.com/nvim-treesitter/nvim-treesitter-context), [textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)) |
+| Textobjects, pairs, surround, icons | [mini.ai / mini.pairs / mini.surround / mini.icons](https://github.com/nvim-mini) |
+| LSP | native `vim.lsp` + [mason](https://github.com/mason-org/mason.nvim) + [roslyn.nvim](https://github.com/seblyng/roslyn.nvim) |
+| Formatting | [conform](https://github.com/stevearc/conform.nvim) |
+| Debugging | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [dap-ui](https://github.com/rcarriga/nvim-dap-ui), [dap-go](https://github.com/leoluz/nvim-dap-go), [dap-cs](https://github.com/NicholasMata/nvim-dap-cs) |
+| Git | [gitsigns](https://github.com/lewis6991/gitsigns.nvim) |
+| Quickfix | [nvim-bqf](https://github.com/kevinhwang91/nvim-bqf) |
+| Keybind hints | [which-key](https://github.com/folke/which-key.nvim) |
+| tmux navigation | [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) |
+| Indent detection | [guess-indent](https://github.com/NMAC427/guess-indent.nvim) |
+| TODO highlighting | [todo-comments](https://github.com/folke/todo-comments.nvim) |
 
-Plugins install into `~/.local/share/nvim/site/pack/core/opt/`. Revisions are recorded in
-`nvim-pack-lock.json`, which is gitignored: `vim.pack` regenerates it on install and update, so a
-fresh clone resolves each plugin's default branch (or the `version` range in its spec) rather than
-a pinned revision.
+Undotree, netrw replacement (snacks explorer), folding (`vim.treesitter.foldexpr()`), and the
+message/cmdline UI all come from Neovim itself — no plugin needed.
 
-## What is included
+### Language servers
 
-- Theme: [oxocarbon](https://github.com/nyoom-engineering/oxocarbon.nvim)
-- QoL collection: [snacks](https://github.com/folke/snacks.nvim) — picker, explorer, dashboard,
-  notifier, statuscolumn, bigfile, quickfile, scope, indent guides, image preview
-- Statusline: [lualine](https://github.com/nvim-lualine/lualine.nvim)
-- Keymap hints: [which-key](https://github.com/folke/which-key.nvim)
-- Git signs and hunk actions: [gitsigns](https://github.com/lewis6991/gitsigns.nvim)
-- tmux pane navigation: [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator)
-- Parsing and highlighting: [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-  (`main` branch) with
-  [context](https://github.com/nvim-treesitter/nvim-treesitter-context) and
-  [textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
-- Editing helpers from [mini.nvim](https://github.com/nvim-mini/mini.nvim): `mini.ai`,
-  `mini.pairs`, `mini.surround`, `mini.icons`
-- LSP: Neovim's [native client](https://neovim.io/doc/user/lsp.html), one file per server under
-  `lsp/`, plus [roslyn.nvim](https://github.com/seblyng/roslyn.nvim) for C#
-- Completion and snippets: [blink.cmp](https://github.com/Saghen/blink.cmp) (pinned to `1.*`) with
-  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets). Sources are LSP, path,
-  snippets, buffer and Copilot.
-- Copilot: [copilot.lua](https://github.com/zbirenbaum/copilot.lua) as the client, set up on the
-  first `InsertEnter`, feeding blink through
-  [blink-cmp-copilot](https://github.com/giuxtaposition/blink-cmp-copilot). Copilot's own inline
-  suggestions and panel are off, so every completion comes from the blink menu.
-- Formatting: [conform](https://github.com/stevearc/conform.nvim), format on save
-- Debugging: [nvim-dap](https://github.com/mfussenegger/nvim-dap),
-  [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui), with Go and .NET adapters
-- Quickfix: [nvim-bqf](https://github.com/kevinhwang91/nvim-bqf)
-- TODO highlighting: [todo-comments](https://github.com/folke/todo-comments.nvim)
-- Indent detection: [guess-indent](https://github.com/NMAC427/guess-indent.nvim), driven off
-  `FileType` so it runs after `after/ftplugin`. Existing files follow their own style; new files
-  fall back to the `after/ftplugin` default. `go` and `terraform` are excluded, since gofmt and
-  `terraform fmt` enforce a fixed style.
-- Tool installer: [mason](https://github.com/mason-org/mason.nvim) with
-  [mason-tool-installer](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim) and
-  [mason-nvim-dap](https://github.com/jay-babu/mason-nvim-dap.nvim)
+`bashls`, `buf_ls`, `gopls`, `jsonls`, `lua_ls`, `roslyn` (C#), `ruff` (Python), `terraform_ls`,
+`yamlls`. Binaries are installed automatically by `mason-tool-installer` on startup.
 
-Built-in features in use instead of plugins: `vim.pack` for packages, native LSP and diagnostics,
-`vim.treesitter.foldexpr()` for folding, the bundled `nvim.undotree`, and the experimental
-message/cmdline UI enabled in `init.lua`.
+SQL has no language server — `sql-language-server` is unmaintained and crashes on current Node.
+SQL files get treesitter highlighting and `sql_formatter` on save.
 
-## Language servers
+### Formatters
 
-Enabled in `lua/core/lsp.lua`: `bashls`, `buf_ls`, `gopls`, `htmx`, `jsonls`, `lua_ls`, `ruff`,
-`terraform_ls`, `yamlls`. C# is handled by `roslyn.nvim` against the `roslyn` mason package.
-
-SQL has no language server: `sql-language-server` is unmaintained and crashes on Node 18+. SQL files
-get treesitter highlighting and `sql_formatter` on save.
-
-To add a server, drop a `lsp/<name>.lua` returning a `vim.lsp.Config` table and add its name to the
-`vim.lsp.enable()` list. Add the corresponding mason package to `lua/plugins/mason.lua`.
+`csharpier` (C#), `goimports` + `gofumpt` (Go), `prettier` (JSON, Markdown, YAML), `stylua` (Lua),
+`ruff` (Python), `shfmt` (shell), `sql_formatter` (SQL). Everything else falls back to the LSP.
 
 ## Keymaps
 
-Leader is `<Space>`. `which-key` lists everything under a prefix; `<leader>fk` searches all keymaps.
+Leader is `<Space>`. `which-key` shows the rest — this is just the map of the territory.
 
-### Editing
-
-| Key | Action |
-| --- | --- |
-| `<C-s>` | Write the buffer |
-| `<C-d>` / `<C-u>` | Half-page scroll, cursor centred |
-| `n` / `N` | Next / previous search hit, centred |
-| `J` / `K` (visual) | Move the selection down / up |
-| `<` / `>` (visual) | Reindent and keep the selection |
-| `p` / `P` (visual) | Paste over the selection without clobbering the register |
-| `d` / `x` | Delete into the black hole register |
-| `<leader>u` | Undo tree |
-| `<leader>q` | Close the window |
-| `<leader>r` | Restart Neovim |
-| `sa` / `sd` / `sr` | Add / delete / replace a surrounding pair |
-
-### Navigation
+### Find (`<leader>f`)
 
 | Key | Action |
 | --- | --- |
-| `<C-h>` `<C-j>` `<C-k>` `<C-l>` | Move between splits and tmux panes |
-| `<C-\>` | Previous tmux pane |
-| `<C-A-arrows>` | Resize the window |
-| `\` | Toggle the file explorer |
+| `<leader>ff` / `<leader>fg` | Find files / git files |
+| `<leader>fs` / `<leader>fw` | Grep project / grep word under cursor |
+| `<leader>fb` / `<leader>fr` | Open buffers / recent files |
+| `<leader>f/` | Fuzzy-search the current buffer |
+| `<leader>fd` / `<leader>ft` | Diagnostics / TODO comments |
+| `<leader>fh` / `<leader>fk` / `<leader>fq` | Help / keymaps / quickfix |
+| `\` | Toggle file explorer |
 
-### Find
-
-| Key | Action |
-| --- | --- |
-| `<leader>ff` | Files |
-| `<leader>fg` | Git-tracked files |
-| `<leader>fs` | Grep the project |
-| `<leader>fw` | Grep the word under the cursor |
-| `<leader>f/` | Search the current buffer |
-| `<leader>fb` | Open buffers |
-| `<leader>fr` | Recent files |
-| `<leader>fd` | Diagnostics |
-| `<leader>fq` | Quickfix list |
-| `<leader>ft` | TODO comments |
-| `<leader>fh` | Help tags |
-| `<leader>fk` | Keymaps |
-
-### LSP
+### LSP & diagnostics
 
 | Key | Action |
 | --- | --- |
-| `K` | Hover |
-| `gd` / `gD` | Definition / declaration |
-| `gri` / `grt` | Implementation / type definition |
-| `grr` | References |
-| `grn` | Rename |
-| `gra` | Code action |
+| `K` / `gs` | Hover docs / signature help |
+| `gd` / `gD` / `gri` / `grt` | Definition / declaration / implementation / type definition |
+| `grr` / `grn` / `gra` | References / rename / code action |
 | `gO` | Document symbols |
-| `gs` | Signature help |
-| `<leader>d` / `<leader>D` | Buffer / workspace diagnostics to the quickfix list |
-| `<leader>cf` | Format the buffer |
-| `<leader>th` | Toggle inlay hints |
+| `<leader>d` / `<leader>D` | Buffer / workspace diagnostics → quickfix |
+| `<leader>cf` | Format buffer (also runs on save) |
 
-### Git
+### Git (`<leader>g`)
 
-| Key | Action |
-| --- | --- |
-| `<leader>gs` / `<leader>gS` | Stage hunk / buffer |
-| `<leader>gr` / `<leader>gR` | Reset hunk / buffer |
-| `<leader>gu` | Undo stage hunk |
-| `<leader>gp` / `<leader>gP` | Preview hunk in a float / inline |
-| `<leader>gd` | Diff against the index |
-| `<leader>gb` | Blame the current line |
+`gs`/`gS` stage hunk/buffer, `gr`/`gR` reset hunk/buffer, `gu` undo stage,
+`gp`/`gP` preview hunk (float/inline), `gb` blame line, `gd` diff against index.
 
 ### Debug
 
@@ -207,18 +123,45 @@ Leader is `<Space>`. `which-key` lists everything under a prefix; `<leader>fk` s
 | --- | --- |
 | `<F5>` | Start / continue |
 | `<F7>` / `<F8>` / `<S-F8>` | Step into / over / out |
-| `<F9>` | Toggle the DAP UI |
-| `<leader>bb` | Toggle a breakpoint |
-| `<leader>B` | Set a conditional breakpoint (prompts for the condition) |
-| `<leader>bc` | Clear all breakpoints |
+| `<F9>` | Toggle DAP UI |
+| `<leader>bb` / `<leader>bc` / `<leader>B` | Toggle / clear / conditional breakpoint |
 
-The dap stack loads on the first of these keymaps, not at startup.
+The whole DAP stack is lazy — nothing is configured until you press one of these.
 
-### Toggles
+### Toggles & misc
 
-`<leader>ti` indent guides, `<leader>tw` wrap, `<leader>th` inlay hints.
+| Key | Action |
+| --- | --- |
+| `<leader>ti` / `<leader>tw` / `<leader>th` | Indent guides / wrap / inlay hints |
+| `<leader>u` | Undotree |
+| `<leader>q` / `<leader>r` | Close window / restart Neovim |
+| `<C-h/j/k/l>` | Move between splits and tmux panes |
+| `<C-s>` | Write |
+| `sa` / `sd` / `sr` | Add / delete / replace surrounding |
 
-## Health
+## Notes
 
-`:checkhealth` for the general report, `:checkhealth vim.lsp` (aliased to `:LspInfo`) for attached
-clients, `:Mason` for tool installs, `:lua vim.pack.get()` for plugin state.
+- `d` and `x` write to the black-hole register, so they never clobber your yank.
+  Use `"ad` or a cut-then-`p` workflow if you need the text back.
+- `mini.surround` owns the `s` prefix in normal and visual mode. Ex commands are
+  unaffected (`:%s/old/new/g` still works); only normal-mode `s` (≡ `cl`) is shadowed.
+- In the picker, `<Esc>` leaves the prompt for normal mode and `<C-c>` closes it. From
+  normal mode `<Esc>` closes too.
+- Copilot is set up on the first `InsertEnter` rather than at startup, and its own inline
+  suggestions and panel are off — completions arrive through the blink menu.
+- Indentation comes from `guess-indent` for files whose style it can read, falling back to
+  the `after/ftplugin/` defaults for new or unindented files. `go` is excluded, since gofmt
+  is always tabs.
+- Formatting on save is synchronous with a 500 ms budget, falling back to the LSP
+  when no formatter is configured for the filetype.
+
+## Maintenance
+
+| Command | Purpose |
+| --- | --- |
+| `:lua vim.pack.update()` | Update plugins |
+| `:lua vim.pack.get()` | List installed plugins and revisions |
+| `:Mason` | Manage LSP servers, formatters, debug adapters |
+| `:TSUpdate` | Update treesitter parsers |
+| `:checkhealth` | Diagnose problems |
+| `:LspInfo` | Inspect attached LSP clients |
