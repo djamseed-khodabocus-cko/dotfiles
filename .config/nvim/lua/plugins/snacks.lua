@@ -22,6 +22,11 @@ require('snacks').setup({
         enabled = true,
         prompt = '❯ ',
         layout = { cycle = false },
+        sources = {
+            explorer = { hidden = true, exclude = { '.git' } },
+            files = { hidden = true },
+            grep = { hidden = true },
+        },
         win = {
             input = {
                 keys = {
