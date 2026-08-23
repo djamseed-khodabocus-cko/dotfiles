@@ -44,6 +44,15 @@ Snacks.toggle.indent():map('<leader>ti')
 Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>tw')
 Snacks.toggle.inlay_hints():map('<leader>th')
 
+-- Oxocarbon renders `NonText` at #393939, which is barely a shade off the #161616
+-- background, so the names of hidden and ignored files were unreadable. Dim them
+-- less: still quieter than a regular file, but legible.
+Snacks.util.set_hl({
+    PathHidden = { fg = '#8d8d8d' },
+    PathIgnored = { fg = '#525252' },
+}, { prefix = 'SnacksPicker' })
+
+
 local map = function(keys, func, desc) vim.keymap.set('n', keys, func, { desc = desc, silent = true, noremap = true }) end
 
 map('\\', function() Snacks.explorer() end, 'Toggle file explorer')
