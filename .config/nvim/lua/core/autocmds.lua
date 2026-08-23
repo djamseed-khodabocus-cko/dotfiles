@@ -25,6 +25,11 @@ autocmd('FileType', {
     group = group,
     pattern = { 'gitcommit', 'markdown', 'text' },
     callback = function()
+        -- LSP hover and signature floats are scratch markdown buffers, so they hit
+        -- this too and every identifier gets underlined as a spelling error
+        if vim.bo.buftype ~= '' then
+            return
+        end
         vim.opt_local.wrap = true
         vim.opt_local.spell = true
     end,

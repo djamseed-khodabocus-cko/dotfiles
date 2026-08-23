@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
-        map('K', vim.lsp.buf.hover, 'Hover documentation')
+        map('K', function() vim.lsp.buf.hover({ max_width = 90, max_height = 25 }) end, 'Hover documentation')
         map('gD', vim.lsp.buf.declaration, 'Goto declaration')
         map('gO', vim.lsp.buf.document_symbol, 'Document symbols')
         map('gd', vim.lsp.buf.definition, 'Goto definition')
@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         map('grn', vim.lsp.buf.rename, 'Rename')
         map('grr', vim.lsp.buf.references, 'Goto references')
         map('grt', vim.lsp.buf.type_definition, 'Goto type definitions')
-        map('gs', vim.lsp.buf.signature_help, 'Signature help')
+        map('gs', function() vim.lsp.buf.signature_help({ max_width = 90, max_height = 25 }) end, 'Signature help')
 
         -- Highlight references of the word under the cursor
         local client = vim.lsp.get_client_by_id(event.data.client_id)
