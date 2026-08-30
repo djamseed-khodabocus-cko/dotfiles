@@ -26,11 +26,6 @@ vim.keymap.set('x', 'P', [["_dp]])
 vim.keymap.set({ 'n', 'v' }, 'd', '"_d', opts)
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x', opts)
 
-vim.keymap.set('n', '<C-A-Up>', ':resize +2<CR>')
-vim.keymap.set('n', '<C-A-Down>', ':resize -2<CR>')
-vim.keymap.set('n', '<C-A-Left>', ':vertical resize -2<CR>')
-vim.keymap.set('n', '<C-A-Right>', ':vertical resize +2<CR>')
-
 vim.keymap.set('n', 'Q', '<Nop>', { silent = true })
 
 vim.keymap.set('n', '<leader>u', function()
