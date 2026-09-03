@@ -5,7 +5,3 @@
 
 (setq user-full-name    "Your Name"
       user-mail-address "you@example.com")
-
-;; Google Calendar ID for org-gcal. Defaults to `user-mail-address'; override
-;; here if you sync a calendar that isn't your primary one.
-;; (setq +gcal-calendar-id "something@group.calendar.google.com")
