@@ -425,11 +425,8 @@ hangs."
 ;; A dynamic block, org's answer to the vault's dataviewjs chart.
 
 (defvar +bujo-metrics
-  '(("ENERGY"  . "Energy")
-    ("MOOD"    . "Mood")
-    ("SLEEP"   . "Sleep")
-    ("WEIGHT"  . "Weight")
-    ("READING" . "Read"))
+  '(("ENERGY" . "Energy")
+    ("FOCUS"  . "Focus"))
   "Daily file-level properties collected into the weekly table.
 Each entry is (PROPERTY . COLUMN-HEADING).")
 

@@ -3,10 +3,7 @@
 :DAY:      %<%A>
 :WEEK:     %<%G-W%V>
 :ENERGY:
-:MOOD:
-:SLEEP:
-:WEIGHT:
-:READING:
+:FOCUS:
 :CREATED:  %U
 :END:
 #+title: %<%Y-%m-%d %A>
