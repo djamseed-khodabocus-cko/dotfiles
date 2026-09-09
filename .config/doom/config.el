@@ -27,7 +27,7 @@
 ;;; ─── Theme & font ───────────────────────────────────────────────────────────
 
 (setq doom-theme 'oxocarbon
-      doom-font (font-spec :family "BlexMono Nerd Font" :size 15)
+      doom-font (font-spec :family "Iosevka" :size 15)
       doom-variable-pitch-font (font-spec :family "iA Writer Quattro V" :size 15)
       mixed-pitch-set-height t)
 
@@ -262,6 +262,23 @@ the targets stay current as collections are added."
   (require 'org-habit)
   (setq org-habit-show-habits-only-for-today t
         org-habit-show-all-today nil))
+
+;;; ─── Org — org-modern ───────────────────────────────────────────────────────
+
+;; org-modern draws stars, checkboxes and list bullets from one face. The pin is
+;; not redundant with `doom-font' being Iosevka: `mixed-pitch-mode' is on in org
+;; buffers and remaps the default face to `variable-pitch', and org-modern-symbol
+;; is absent from `mixed-pitch-fixed-pitch-faces' -- so unpinned it resolves
+;; through iA Writer Quattro V, which carries none of these glyphs. Each level
+;; then lands on a different fallback family, and the level-3 fold indicators
+;; (U+2BC8 / U+2BC6) reach only `.LastResort', which draws them as a box with the
+;; hex codepoint inside.
+;;
+;; Pinning the face is what upstream's own screenshot does; see
+;; `set-face-attribute' on `org-modern-symbol' in its README, and the face's
+;; docstring for the other fonts known to work.
+(custom-set-faces!
+  '(org-modern-symbol :family "Iosevka"))
 
 ;;; ─── Journal — files ────────────────────────────────────────────────────────
 
