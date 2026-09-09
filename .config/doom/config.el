@@ -319,18 +319,6 @@ Via `encode-time' rather than 86400-second arithmetic, which breaks on DST."
                        (+ (nth 3 d) n) (nth 4 d) (nth 5 d)
                        nil -1 nil))))
 
-(defun +bujo--iso-week-monday (week)
-  "Return the time value for the Monday of WEEK, a \"YYYY-Www\" string.
-ISO 8601 anchors week 1 on the week containing January 4th."
-  (unless (string-match "\\`\\([0-9]\\{4\\}\\)-W\\([0-9]\\{1,2\\}\\)\\'" week)
-    (user-error "Not an ISO week designator: %S" week))
-  (let* ((year (string-to-number (match-string 1 week)))
-         (n    (string-to-number (match-string 2 week)))
-         (jan4 (encode-time (list 0 0 12 4 1 year nil -1 nil)))
-         (dow  (string-to-number (format-time-string "%u" jan4))))
-    ;; `encode-time' normalises an out-of-range day, so no month arithmetic.
-    (encode-time (list 0 0 12 (+ (- 4 dow) 1 (* 7 (1- n))) 1 year nil -1 nil))))
-
 (defun +bujo--ensure-file (file template &optional time)
   "Return FILE's buffer, creating it from TEMPLATE (expanded as of TIME) if new.
 The file-level :ID: is what makes this an org-roam node with backlinks, rather
@@ -347,18 +335,12 @@ than merely an indexed file."
         (save-buffer)))
     buf))
 
-(defun +bujo--goto-log ()
-  "Move point to the `* Log' heading, or to end of buffer if there is none."
-  (goto-char (point-min))
-  (unless (re-search-forward "^\\* Log[ \t]*$" nil t)
-    (goto-char (point-max))))
-
 (defun +bujo/goto-day (&optional time)
   "Open the daily log for TIME, creating it if needed. Defaults to today."
   (interactive)
   (switch-to-buffer
    (+bujo--ensure-file (+bujo-daily-file time) "journal/daily-head.org" time))
-  (+bujo--goto-log))
+  (goto-char (point-max)))
 
 (defun +bujo/today ()     (interactive) (+bujo/goto-day))
 (defun +bujo/yesterday () (interactive) (+bujo/goto-day (+bujo--day-offset (current-time) -1)))
@@ -373,8 +355,7 @@ than merely an indexed file."
   "Open the weekly review for TIME's ISO week, creating it if needed."
   (interactive)
   (switch-to-buffer
-   (+bujo--ensure-file (+bujo-weekly-file time) "journal/weekly-head.org" time))
-  (org-update-all-dblocks))
+   (+bujo--ensure-file (+bujo-weekly-file time) "journal/weekly-head.org" time)))
 
 (defun +bujo/this-week () (interactive) (+bujo/goto-week))
 (defun +bujo/last-week () (interactive) (+bujo/goto-week (+bujo--day-offset (current-time) -7)))
@@ -388,7 +369,7 @@ than merely an indexed file."
 ;;; ─── Journal — capture ──────────────────────────────────────────────────────
 
 (defun +bujo-capture-target ()
-  "org-capture target: under `* Log' in today's daily.
+  "org-capture target: the end of today's daily.
 Does not call `org-roam-dailies--capture' — nesting a capture inside a capture
 hangs."
   (let ((file (+bujo-daily-file))
@@ -402,7 +383,7 @@ hangs."
                (+org-template-string "journal/daily-head.org")))
       (goto-char (point-min))
       (org-id-get-create))
-    (+bujo--goto-log)))
+    (goto-char (point-max))))
 
 ;; Global capture frame, opened by bin/org-capture (alt-c in aerospace.toml).
 ;; An explicit `title' parameter is what lets the window manager float it:
@@ -436,89 +417,6 @@ hangs."
            ,(+org-template "capture/meeting.org") :empty-lines 1)
           ("h" "Habit"   entry (file+headline ,+org-habits-file "Habits")
            ,(+org-template "capture/habit.org")   :empty-lines 1))))
-
-;;; ─── Journal — metrics ──────────────────────────────────────────────────────
-
-;; A dynamic block, org's answer to the vault's dataviewjs chart.
-
-(defvar +bujo-metrics
-  '(("ENERGY" . "Energy")
-    ("FOCUS"  . "Focus"))
-  "Daily file-level properties collected into the weekly table.
-Each entry is (PROPERTY . COLUMN-HEADING).")
-
-(defun +bujo--numeric (s)
-  "Return S as a number when it looks like one, else nil."
-  (and (stringp s)
-       (let ((s (string-trim s)))
-         (and (string-match-p "\\`[0-9]+\\(\\.[0-9]+\\)?\\'" s)
-              (string-to-number s)))))
-
-(defun +bujo--daily-properties (file)
-  "Return an alist of FILE's file-level `+bujo-metrics' properties."
-  (with-temp-buffer
-    (delay-mode-hooks (org-mode))
-    (insert-file-contents file)
-    (mapcar (lambda (cell)
-              (cons (car cell) (org-entry-get (point-min) (car cell))))
-            +bujo-metrics)))
-
-(defun +bujo--count-open (file)
-  "Count open TODO headings in FILE."
-  (with-temp-buffer
-    (insert-file-contents file)
-    (how-many "^\\*+ TODO " (point-min) (point-max))))
-
-(defun org-dblock-write:bujo-metrics (params)
-  "Write the week's daily logs and their metrics as an org table.
-PARAMS may carry :week \"YYYY-Www\"; otherwise the buffer's :WEEK: property,
-then the current week."
-  (let* ((week   (or (plist-get params :week)
-                     (org-entry-get (point-min) "WEEK")
-                     (format-time-string "%G-W%V")))
-         (monday (+bujo--iso-week-monday week))
-         (keys   (mapcar #'car +bujo-metrics))
-         (sums   (make-vector (length keys) 0))
-         (counts (make-vector (length keys) 0))
-         (open-total 0)
-         (rows   '()))
-    (dotimes (i 7)
-      (let* ((time   (+bujo--day-offset monday i))
-             (file   (+bujo-daily-file time))
-             (exists (file-readable-p file))
-             (props  (and exists (+bujo--daily-properties file)))
-             (open   (if exists (+bujo--count-open file) 0))
-             (cells  '()))
-        (cl-incf open-total open)
-        (dotimes (n (length keys))
-          (let* ((raw (cdr (assoc (nth n keys) props)))
-                 (num (+bujo--numeric raw)))
-            (when num
-              (cl-incf (aref sums n) num)
-              (cl-incf (aref counts n) 1))
-            (push (or raw "") cells)))
-        (push (append
-               (list (if exists
-                         (format "[[file:%s][%s]]"
-                                 (file-name-nondirectory file)
-                                 (format-time-string "%a %d" time))
-                       (format-time-string "%a %d" time)))
-               (nreverse cells)
-               (list (if (> open 0) (number-to-string open) "")))
-              rows)))
-    (insert "| Day | " (mapconcat #'cdr +bujo-metrics " | ") " | Open |\n|-\n")
-    (dolist (row (nreverse rows))
-      (insert "| " (mapconcat #'identity row " | ") " |\n"))
-    (insert "|-\n| Avg | "
-            (mapconcat
-             (lambda (n)
-               (if (> (aref counts n) 0)
-                   (format "%.1f" (/ (aref sums n) (float (aref counts n))))
-                 ""))
-             (number-sequence 0 (1- (length keys)))
-             " | ")
-            " | " (number-to-string open-total) " |")
-    (org-table-align)))
 
 ;;; ─── Org — agenda ───────────────────────────────────────────────────────────
 
@@ -662,14 +560,12 @@ file ever written."
   ;; produce identical files.
   (setq org-roam-dailies-capture-templates
         `(("d" "log entry" entry ,(+org-template "capture/note.org")
-           :target (file+head+olp "%<%Y-%m-%d>.org"
-                                  ,(+org-template-head "journal/daily-head.org")
-                                  ("Log"))
+           :target (file+head "%<%Y-%m-%d>.org"
+                              ,(+org-template-head "journal/daily-head.org"))
            :empty-lines 1)
           ("t" "task" entry ,(+org-template "capture/task.org")
-           :target (file+head+olp "%<%Y-%m-%d>.org"
-                                  ,(+org-template-head "journal/daily-head.org")
-                                  ("Log"))
+           :target (file+head "%<%Y-%m-%d>.org"
+                              ,(+org-template-head "journal/daily-head.org"))
            :empty-lines 1))))
 
 (use-package! consult-org-roam

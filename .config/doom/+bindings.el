@@ -25,7 +25,6 @@
         :desc "This week"       "w" #'+bujo/this-week
         :desc "Last week"       "W" #'+bujo/last-week
         :desc "Migration"       "m" (cmd! (org-agenda nil "m"))
-        :desc "Rebuild dblocks" "u" #'org-update-all-dblocks
         :desc "Browse journal"  "b" #'+bujo/browse)))
 
 ;;; ─── Roam ───────────────────────────────────────────────────────────────────

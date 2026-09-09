@@ -1,17 +1,1 @@
-:PROPERTIES:
-:TYPE:     daily
-:DAY:      %<%A>
-:WEEK:     %<%G-W%V>
-:ENERGY:
-:FOCUS:
-:CREATED:  %U
-:END:
 #+title: %<%Y-%m-%d %A>
-#+filetags: :daily:
-
-* Log
-
-* Reflections
-** What went well?
-** What I would do differently?
-** Grateful for                                                   :gratitude:
