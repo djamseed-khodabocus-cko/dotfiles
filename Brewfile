@@ -1,5 +1,6 @@
 cask_args appdir: '/Applications'
 
+brew 'aspell'
 brew 'awscli'
 brew 'awscli-local'
 brew 'bash'
