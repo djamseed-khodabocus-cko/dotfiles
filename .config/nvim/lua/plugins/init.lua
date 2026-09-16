@@ -1,11 +1,22 @@
 -- Load every Lua file in the plugins directory. `vim.fs.dir` yields entries in filesystem order,
--- so sort them: some modules depend on an earlier one having run (lualine needs the colorscheme's
--- theme to be on the runtimepath, for instance).
+-- so sort them. Modules listed in `ordered` run before the rest: lualine needs the colorscheme's
+-- theme to be on the runtimepath, for instance.
 local plugins_dir = vim.fs.joinpath(vim.fn.stdpath('config'), 'lua', 'plugins')
+local ordered = { 'colorscheme' }
+
+local loaded = {}
+for _, module in ipairs(ordered) do
+    require('plugins.' .. module)
+    loaded[module] = true
+end
+
 local modules = {}
 for file_name, type in vim.fs.dir(plugins_dir, { follow = true }) do
     if (type == 'file' or type == 'link') and file_name:match('%.lua$') and file_name ~= 'init.lua' then
-        table.insert(modules, (file_name:gsub('%.lua$', '')))
+        local module = file_name:gsub('%.lua$', '')
+        if not loaded[module] then
+            table.insert(modules, module)
+        end
     end
 end
 table.sort(modules)
