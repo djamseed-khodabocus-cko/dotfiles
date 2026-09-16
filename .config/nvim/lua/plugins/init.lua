@@ -29,6 +29,7 @@ end
 
 -- Autocommands that run after a plugin is installed or updated
 vim.api.nvim_create_autocmd('PackChanged', {
+    group = vim.api.nvim_create_augroup('pack-changed', { clear = true }),
     callback = function(event)
         local name = event.data.spec.name
         local kind = event.data.kind

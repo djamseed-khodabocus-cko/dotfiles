@@ -68,6 +68,7 @@ for _, lang in ipairs(treesitter.get_installed('parsers')) do
 end
 
 vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('treesitter-attach', { clear = true }),
     callback = function(args)
         local buf, filetype = args.buf, args.match
         local language = vim.treesitter.language.get_lang(filetype)
