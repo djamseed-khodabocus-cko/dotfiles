@@ -33,7 +33,6 @@ require('blink.cmp').setup({
             },
         },
         menu = {
-            auto_show = function(ctx) return ctx.mode ~= 'cmdline' or not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype()) end,
             draw = {
                 components = {
                     kind_icon = {
@@ -60,6 +59,13 @@ require('blink.cmp').setup({
         preset = 'default',
         ['<C-space>'] = {},
         ['<C-a>'] = { 'show', 'show_documentation', 'hide_documentation' },
+    },
+    cmdline = {
+        completion = {
+            menu = {
+                auto_show = function() return not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype()) end,
+            },
+        },
     },
     signature = {
         enabled = true,
