@@ -66,7 +66,9 @@ vim.diagnostic.config({
     severity_sort = true,
     underline = { severity = { min = vim.diagnostic.severity.WARN } },
     virtual_text = { current_line = true },
-    jump = { float = true },
+    jump = {
+        on_jump = function(_, bufnr) vim.diagnostic.open_float({ bufnr = bufnr, scope = 'cursor', focus = false }) end,
+    },
     signs = diagnostic_signs,
     float = { border = 'rounded', source = 'if_many' },
 })
