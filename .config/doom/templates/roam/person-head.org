@@ -1,7 +1,0 @@
-:PROPERTIES:
-:TYPE:     person
-:CREATED:  %U
-:END:
-#+title: ${title}
-#+filetags: :person:
-

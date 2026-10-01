@@ -1,7 +1,0 @@
-;;; $DOOMDIR/local/personal.el -*- lexical-binding: t; -*-
-;;; Copy this to local/personal.el and fill it in. That file is gitignored, so
-;;; personal details stay out of this public repo. Mirrors the pattern used for
-;;; git in ~/.config/git/local/user.
-
-(setq user-full-name    "Your Name"
-      user-mail-address "you@example.com")
