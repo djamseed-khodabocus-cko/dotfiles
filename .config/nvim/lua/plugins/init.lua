@@ -64,3 +64,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
         end
     end,
 })
+
+-- Command to update plugins
+vim.api.nvim_create_user_command('PackUpdate', ':lua vim.pack.update()', { desc = 'Update plugins' })
