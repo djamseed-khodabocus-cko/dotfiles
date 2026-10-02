@@ -40,6 +40,9 @@ local diff = {
 
 local async_progress = function() return vim.ui.progress_status() or '' end
 
+-- Running org clock and timer, empty otherwise
+local org_clock = function() return require('org').statusline() end
+
 require('lualine').setup({
     options = {
         always_divide_middle = true,
@@ -63,6 +66,7 @@ require('lualine').setup({
             async_progress,
         },
         lualine_x = {
+            org_clock,
             diagnostics,
             diff,
             'fileformat',
