@@ -11,7 +11,7 @@ require('org').setup({
     default_notes_file = org_dir .. '/refile.org',
 
     -- `!` (timestamp) rather than `@` (note): a note prompt blocks bulk agenda actions
-    todo_keywords = { 'TODO(t) | DONE(d!) CANCELLED(x!)' },
+    todo_keywords = { 'TODO(t) WAITING(w!) SOMEDAY(s) | DONE(d!) CANCELLED(x!)' },
     enforce_todo_dependencies = true,
     enforce_todo_checkbox_dependencies = true,
 
@@ -54,7 +54,62 @@ require('org').setup({
         allow_creating_parent_nodes = 'confirm',
     },
 
-    ui = {
-        todo_keyword_faces = { CANCELLED = { fg = '#6f6f6f', strikethrough = true } },
+    extensions = {
+        super_agenda = {
+            groups = {
+                { name = 'Today', time_grid = true, scheduled = 'today', deadline = 'today' },
+                { name = 'Overdue', scheduled = 'past', deadline = 'past' },
+                { name = 'Important', priority = 'A' },
+                { name = 'Due soon', deadline = 'future' },
+                { auto_category = true, order = 9 },
+            },
+        },
+        quickadd = {},
+        review = {},
+        sidebar = {},
+        timeline = {},
+        heatmap = {},
     },
+
+    -- <C-Space> is the tmux prefix
+    mappings = {
+        org = { toggle_checkbox = '<leader>o<Space>' },
+    },
+
+    ui = {
+        bullets = { '◉', '○', '✸', '✿' },
+        checkboxes = { ' ', '◐', '✓' },
+        hide_leading_stars = true,
+        -- oxocarbon links TODO to the same pink as level-1 headlines, so give it its own face
+        todo_keyword_faces = {
+            TODO = { fg = '#ff7eb6', bold = true },
+            WAITING = { fg = '#be95ff', bold = true },
+            SOMEDAY = { fg = '#78a9ff', bold = true },
+            DONE = { fg = '#42be65', bold = true },
+            CANCELLED = { fg = '#6f6f6f', strikethrough = true },
+        },
+    },
+})
+
+-- oxocarbon maps scheduled, overdue and upcoming deadlines to the same purple, and leaves the
+-- now-line and priorities uncoloured. org only sets these groups when they are undefined.
+local function agenda_highlights()
+    local hls = {
+        OrgAgendaHeader = { fg = '#78a9ff', bold = true },
+        OrgAgendaScheduled = { fg = '#42be65' },
+        OrgAgendaScheduledPast = { fg = '#ee5396' },
+        OrgAgendaDeadline = { fg = '#ee5396', bold = true },
+        OrgAgendaDeadlineUpcoming = { fg = '#be95ff' },
+        OrgAgendaCurrentTime = { fg = '#33b1ff', bold = true },
+        OrgAgendaPriorityHighest = { fg = '#ee5396', bold = true },
+    }
+    for name, hl in pairs(hls) do
+        vim.api.nvim_set_hl(0, name, hl)
+    end
+end
+
+agenda_highlights()
+vim.api.nvim_create_autocmd('ColorScheme', {
+    group = vim.api.nvim_create_augroup('org-agenda-highlights', { clear = true }),
+    callback = agenda_highlights,
 })
