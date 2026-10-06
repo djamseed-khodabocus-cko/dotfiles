@@ -2,4 +2,9 @@
 # Create an empty commit
 #
 
-git commit --allow-empty -m $1
+if [[ -z $1 ]]; then
+    echo "usage: emptycommit <message>"
+    return 1
+fi
+
+git commit --allow-empty -m "$1"

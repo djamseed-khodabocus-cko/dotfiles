@@ -1,5 +1,21 @@
 #
-# Remove a directory and its contents
+# Remove directories and their contents, after confirmation
 #
 
-rm -rf "$@"
+if [[ $# -eq 0 ]]; then
+    echo "usage: rmd <directory>..."
+    return 1
+fi
+
+local d
+for d in "$@"; do
+    if [[ ! -d $d ]]; then
+        echo "rmd: not a directory: $d" >&2
+        return 1
+    fi
+done
+
+printf 'Permanently delete %s? [y/N] ' "$*"
+read -q || { echo; return 1; }
+echo
+rm -rf -- "$@"

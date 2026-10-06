@@ -1,6 +1,6 @@
-
 #
-# Kill process with specified port
+# Kill the processes listening on the specified port.
+# Sends SIGTERM first, then SIGKILL to anything still alive after 2 seconds.
 #
 
 if [[ -z $1 ]]; then
@@ -11,10 +11,21 @@ fi
 local pids
 pids=$(lsof -i:"$1" -t)
 
-if [[ -z "$pids" ]]; then
+if [[ -z $pids ]]; then
     echo "No process found on port $1"
     return 1
 fi
 
-echo "Killing processes on port $1: $pids"
-echo "$pids" | xargs kill -9
+echo "Terminating processes on port $1: ${pids//$'\n'/ }"
+echo "$pids" | xargs kill -TERM 2>/dev/null
+
+local remaining
+remaining=$(lsof -i:"$1" -t 2>/dev/null)
+if [[ -n $remaining ]]; then
+    sleep 2
+    remaining=$(lsof -i:"$1" -t 2>/dev/null)
+    if [[ -n $remaining ]]; then
+        echo "Still running, sending SIGKILL: ${remaining//$'\n'/ }"
+        echo "$remaining" | xargs kill -KILL 2>/dev/null
+    fi
+fi

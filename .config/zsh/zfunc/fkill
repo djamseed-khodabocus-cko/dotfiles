@@ -1,12 +1,16 @@
 #
-# Fuzzy find a process or group of processes, then SIGKILL them.
+# Fuzzy find a process or group of processes, then terminate them.
+# Sends SIGTERM by default; pass a signal to override, e.g. `fkill -9`.
 # https://bluz71.github.io/2018/11/26/fuzzy-finding-in-bash-with-fzf.html
 #
 
-(($+commands[procs])) && (($+commands[fzf])) && {
-    local pids
-    pids=$(procs $USER | fzf --multi | awk '{print $1}')
-    if [[ -n "$pids" ]]; then
-        echo "$pids" | xargs kill -9 "$@"
-    fi
-}
+if ! (($+commands[procs])) || ! (($+commands[fzf])); then
+    echo "fkill: requires procs and fzf" >&2
+    return 1
+fi
+
+local pids
+pids=$(procs $USER | fzf --multi | awk '{print $1}')
+[[ -n $pids ]] || return 0
+
+echo "$pids" | xargs kill "${@:--TERM}"

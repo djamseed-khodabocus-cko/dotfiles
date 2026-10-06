@@ -4,4 +4,13 @@
 # `bat` that preserves colors and line numbers.
 #
 
-(($+commands[eza])) && eza --all --tree --color always --ignore-glob '.git|node_modules' --group-directories-first | bat
+if ! (($+commands[eza])); then
+    echo "tree: eza is not installed" >&2
+    return 1
+fi
+
+if (($+commands[bat])); then
+    eza --all --tree --color always --ignore-glob '.git|node_modules' --group-directories-first "$@" | bat
+else
+    eza --all --tree --ignore-glob '.git|node_modules' --group-directories-first "$@"
+fi

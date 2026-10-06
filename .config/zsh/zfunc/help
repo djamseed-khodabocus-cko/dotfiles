@@ -7,4 +7,8 @@ if [[ -z $1 ]]; then
     return 1
 fi
 
-(($+commands[bat]))  && "$@" --help 2>&1 | bat --plain --language=help
+if (($+commands[bat])); then
+    "$@" --help 2>&1 | bat --plain --language=help
+else
+    "$@" --help
+fi
