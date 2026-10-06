@@ -10,7 +10,7 @@ if ! (($+commands[eza])); then
 fi
 
 if (($+commands[bat])); then
-    eza --all --tree --color always --ignore-glob '.git|node_modules' --group-directories-first "$@" | bat
+    eza --all --tree --color always --ignore-glob '.git|node_modules' --group-directories-first "${@:-.}" | bat
 else
-    eza --all --tree --ignore-glob '.git|node_modules' --group-directories-first "$@"
+    eza --all --tree --ignore-glob '.git|node_modules' --group-directories-first "${@:-.}"
 fi
