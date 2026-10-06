@@ -59,11 +59,7 @@ tags
 # Ignore tmux plugins
 .config/tmux/plugins
 
-# Ignore lazy-lock.json
-.config/nvim/lazy-lock.json
-
 # Machine-local identity, never committed (see README)
 .config/git/local
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,vim
 # End of https://www.toptal.com/developers/gitignore/api/macos,vim
