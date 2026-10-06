@@ -33,7 +33,7 @@ if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$($(arch | grep -q arm64 && echo /opt/homebrew/bin/brew || echo /usr/local/bin/brew) shellenv)"
 fi
-print 'Installing dotfiles...'
+echo 'Installing dotfiles...'
 git clone https://github.com/djamseed-khodabocus-cko/dotfiles "$HOME/.dotfiles" && cd "$HOME/.dotfiles"
 
 # Default XDG paths
