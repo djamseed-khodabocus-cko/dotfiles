@@ -1,16 +1,5 @@
 # Config relating to the Lazygit UI
 gui:
-  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-branch-color
-  branchColorPatterns:
-    "^fix/": "#d73a4a"
-    "^feat/": "#a2eeef"
-    "^task/": "#a2eeef"
-    "^build/": "#0075ca"
-    "^ci/": "#0075ca"
-    "^docs/": "#11aaff"
-    "^refactor/": "#e4e669"
-    "^perf/": "#ff5733"
-    "^test/": "#7057ff"
   # Format used when displaying time e.g. commit time.
   # Uses Go's time format syntax: https://pkg.go.dev/time#Time.Format
   timeFormat: 02 Jan 06
@@ -42,6 +31,17 @@ gui:
     searchingActiveBorderColor:
       - "#be95ff"
       - bold
+    # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-branch-color
+    branchColorPatterns:
+      "^fix/": "#d73a4a"
+      "^feat/": "#a2eeef"
+      "^task/": "#a2eeef"
+      "^build/": "#0075ca"
+      "^ci/": "#0075ca"
+      "^docs/": "#11aaff"
+      "^refactor/": "#e4e669"
+      "^perf/": "#ff5733"
+      "^test/": "#7057ff"
   showRandomTip: false
   # Nerd fonts version to use.
   # One of: '2' | '3' | empty string (default)
