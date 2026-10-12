@@ -1,6 +1,6 @@
 -- Load every Lua file in the plugins directory. `vim.fs.dir` yields entries in filesystem order,
 -- so sort them. Modules listed in `ordered` run before the rest: lualine needs the colorscheme's
--- theme to be on the runtimepath, for instance, and org registers it's which-key groups only when
+-- theme to be on the runtimepath, for instance, and org registers its which-key groups only when
 -- which-key is already loaded.
 local plugins_dir = vim.fs.joinpath(vim.fn.stdpath('config'), 'lua', 'plugins')
 local ordered = { 'colorscheme', 'which-key' }
