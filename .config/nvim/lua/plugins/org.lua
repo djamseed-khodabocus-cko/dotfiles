@@ -5,10 +5,22 @@ vim.pack.add({ { src = 'https://github.com/xheisenbugx/org.nvim', version = vim.
 
 local org_dir = vim.fn.expand('~/org')
 
+-- Today's roam daily note, created with the same header roam gives it (title + file ID) so a
+-- plain capture into it still leaves a roam node
+local function today_daily()
+    local day = os.date('%Y-%m-%d')
+    local path = org_dir .. '/journal/' .. day .. '.org'
+    if vim.fn.filereadable(path) == 0 then
+        local id = require('org.id').new_id()
+        vim.fn.writefile({ ':PROPERTIES:', ':ID:       ' .. id, ':END:', '#+title: ' .. day, '' }, path)
+    end
+    return path
+end
+
 require('org').setup({
     org_directory = org_dir,
-    agenda_files = { org_dir .. '/journal/*.org', org_dir .. '/notes/*.org' },
-    default_notes_file = org_dir .. '/refile.org',
+    agenda_files = { org_dir .. '/inbox/*.org', org_dir .. '/journal/*.org', org_dir .. '/notes/*.org' },
+    default_notes_file = org_dir .. '/inbox/tasks.org',
 
     -- `!` (timestamp) rather than `@` (note): a note prompt blocks bulk agenda actions
     todo_keywords = { 'TODO(t) WAITING(w!) SOMEDAY(s) | DONE(d!) CANCELLED(x!)' },
@@ -42,10 +54,12 @@ require('org').setup({
         templates = {
             t = { description = 'Task', template = '* TODO %?', empty_lines = 1 },
             n = { description = 'Note', template = '* %?', empty_lines = 1 },
+            -- Used by the weekly review when it finishes (%i is its summary)
+            w = { description = 'Weekly review', template = '* Weekly review %U\n%i%?', target = today_daily },
         },
     },
 
-    -- Within the current file only; there is no projects.org to refile into
+    -- Targets: the agenda files (inbox, journal, notes) and the current file, two levels deep
     refile = {
         max_level = 2,
         include_current_file = true,
@@ -65,10 +79,42 @@ require('org').setup({
             },
         },
         quickadd = {},
-        review = {},
+        review = { capture_template = 'w' },
         sidebar = {},
         timeline = {},
         heatmap = {},
+        -- Rooted at ~/org so inbox, dailies and notes share one index; top-level files and the
+        -- archive stay out of it. New nodes land in inbox/ and move to notes/ once processed
+        roam = {
+            directory = org_dir,
+            exclude = {
+                'data/',
+                'archive/',
+                function(relpath) return not relpath:find('/', 1, true) end,
+            },
+            capture_templates = {
+                d = {
+                    description = 'default',
+                    type = 'plain',
+                    template = '%?',
+                    target = 'inbox/${slug}.org',
+                    head = '#+title: ${title}\n',
+                    unnarrowed = true,
+                },
+            },
+            capture_ref_templates = {
+                r = {
+                    description = 'ref',
+                    type = 'plain',
+                    template = '%?',
+                    target = 'inbox/${slug}.org',
+                    head = '#+title: ${title}\n',
+                    unnarrowed = true,
+                },
+            },
+            extract_new_file_path = 'notes/${slug}.org',
+            dailies = { directory = 'journal/' },
+        },
     },
 
     -- <C-Space> is the tmux prefix

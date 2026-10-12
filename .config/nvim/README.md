@@ -131,8 +131,10 @@ The whole DAP stack is lazy — nothing is configured until you press one of the
 
 ### Org (`<leader>o`)
 
-`oa` agenda, `oc` capture, `os`/`od` schedule/deadline. Files live in `~/org`; `g?` in any org
-or agenda buffer lists its keymaps.
+`oa` agenda, `oc` capture, `os`/`od` schedule/deadline, `omf` find a roam note, `omdt` today's
+daily note. Files live in `~/org` (new tasks and notes in `inbox/`, daily notes in `journal/`,
+processed notes in `notes/`); `g?` in any org or agenda buffer lists its keymaps. Full list:
+[docs/org-keymaps.md](docs/org-keymaps.md).
 
 ### Toggles & misc
 
