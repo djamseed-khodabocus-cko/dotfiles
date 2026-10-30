@@ -17,3 +17,10 @@ node = ['latest', 'lts']
 python = 'latest'
 rust = 'latest'
 zig = 'latest'
+# chromium-bidi moved into the Chromium monorepo and is now published by
+# chrome-devtools-npm@google.com without Sigstore provenance, which trips the
+# npm backend's no-downgrade trust check. Puppeteer's own provenance-signed
+# release pins this exact version; the tarball was inspected before excluding it.
+# The npm backend skips lifecycle scripts, so run puppeteer's postinstall by hand
+# to download chrome-headless-shell into $XDG_CACHE_HOME/puppeteer.
+'npm:@mermaid-js/mermaid-cli' = { version = 'latest', trust_policy_excludes = ['chromium-bidi@157.0.8090-0'], postinstall = 'node "$MISE_TOOL_INSTALL_PATH"/node_modules/.mise/puppeteer@*/node_modules/puppeteer/install.mjs' }
